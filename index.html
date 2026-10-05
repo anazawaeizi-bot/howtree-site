@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Howtree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<style>
+:root {
+  --ground: #F5F6F8;
+  --ink: #1B1D22;
+  --gray: #5A6070;
+  --line: #C9CED6;
+  --off: #D3D8E0;
+  --red: #C9252D;
+  --latin: 'Barlow Semi Condensed', 'Arial Narrow', sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+a { color: var(--ink); }
+a:hover { color: var(--gray); }
+button, input { font-family: inherit; }
+.wrap { max-width: 1360px; margin: 0 auto; padding: 0 40px; }
+.narrow { max-width: 1120px; }
+
+/* 見出しまわり */
+.hd { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding-top: 28px; }
+.brand { display: inline-flex; align-items: center; gap: 16px; text-decoration: none; color: var(--ink); }
+.logo { position: relative; width: 74px; height: 44px; flex: none; display: block; }
+.logo i { position: absolute; display: block; background: var(--red); }
+.logo .b1 { left: 10px; top: 13px; width: 34px; height: 5px; transform-origin: 0 50%; transform: rotate(14deg); }
+.logo .b2 { left: 42px; top: 22px; width: 22px; height: 5px; transform-origin: 0 50%; transform: rotate(-38deg); }
+.logo .c1 { left: 0; top: 4px; width: 20px; height: 20px; border-radius: 50%; }
+.logo .c2 { left: 32px; top: 13px; width: 22px; height: 22px; border-radius: 50%; }
+.logo .c3 { left: 56px; top: 2px; width: 16px; height: 16px; border-radius: 50%; }
+.word { font-family: var(--latin); line-height: 1.05; }
+.word small { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; }
+.word b { display: block; font-size: 24px; font-weight: 700; }
+.hd .right { margin-left: auto; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.link { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; font-weight: 700; background: none; border: 0; padding: 0; color: var(--ink); text-decoration: underline; cursor: pointer; }
+.rule { width: 28px; height: 3px; background: var(--red); margin-bottom: 6px; }
+h2 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 0.06em; }
+.sub { font-size: 13px; font-weight: 700; color: var(--gray); }
+.muted { color: var(--gray); }
+.foot { margin-top: 48px; padding: 10px 0 28px; border-top: 1px solid var(--line); font-family: var(--latin); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; color: var(--gray); }
+
+.band { margin-top: 24px; background: var(--red); color: #fff; padding: 28px 36px; display: flex; align-items: flex-end; gap: 24px 32px; flex-wrap: wrap; }
+.band .main { flex: 999 1 380px; min-width: 0; }
+.band .tag { display: inline-block; border: 1.5px solid #fff; border-radius: 3px; padding: 1px 14px; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; }
+.band h1 { margin: 10px 0 0; font-size: 44px; line-height: 1.2; font-weight: 900; letter-spacing: 0.04em; }
+.band p { margin: 6px 0 0; font-weight: 500; }
+.stats { display: flex; gap: 36px; flex-wrap: wrap; }
+.stat .k { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; }
+.stat .v { font-family: var(--latin); font-size: 56px; font-weight: 700; line-height: 1; }
+.stat .v span { font-family: inherit; font-size: 16px; font-weight: 700; margin-left: 4px; }
+.stat .v span.jp { font-family: 'Zen Kaku Gothic New', sans-serif; }
+.badge { display: inline-block; border: 1px solid var(--ink); padding: 0 10px; font-size: 13px; font-weight: 700; }
+.badge.fill { background: var(--ink); color: #fff; }
+
+/* ボタンと札 */
+.btn { min-height: 44px; padding: 0 18px; border: 1px solid var(--ink); border-radius: 0; background: #fff; color: var(--ink); font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+.btn:hover { background: #ECEEF2; color: var(--ink); }
+.btn.fill { background: var(--ink); color: #fff; }
+.btn.red { background: var(--red); border-color: var(--red); color: #fff; }
+.btn.big { min-height: 60px; font-size: 18px; flex: 1 1 200px; }
+.btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { min-height: 36px; padding: 0 14px; border: 1px solid var(--ink); background: #fff; color: var(--ink); font-size: 14px; font-weight: 700; cursor: pointer; }
+.chip.known { background: var(--ink); color: #fff; }
+.chip.helps { border-style: dashed; font-weight: 500; }
+.legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; font-weight: 500; color: var(--gray); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { display: block; width: 18px; height: 12px; }
+
+/* トップ */
+.hero { padding-top: 72px; }
+.hero form { display: flex; align-items: flex-end; gap: 16px 24px; flex-wrap: wrap; }
+.hero label { font-family: var(--latin); font-size: 96px; font-weight: 700; line-height: 0.9; }
+.hero .field { flex: 999 1 360px; min-width: 0; display: flex; flex-wrap: wrap; }
+.hero input { flex: 999 1 240px; min-width: 0; height: 64px; padding: 0 20px; border: 1px solid var(--ink); border-radius: 0; background: #fff; color: var(--ink); font-size: 22px; font-weight: 700; }
+.hero .go { flex: 1 0 auto; height: 64px; padding: 0 32px; border: 0; background: var(--red); color: #fff; font-size: 18px; font-weight: 700; letter-spacing: 0.08em; cursor: pointer; }
+.hero .lead { margin-top: 20px; font-size: 16px; font-weight: 500; color: var(--gray); }
+.sec { padding-top: 56px; }
+.sechead { display: flex; align-items: flex-end; gap: 12px 24px; flex-wrap: wrap; }
+.sechead .right { margin-left: auto; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.goals { margin-top: 16px; border-top: 1px solid var(--ink); }
+.goal { display: flex; align-items: center; gap: 12px 28px; flex-wrap: wrap; min-height: 64px; padding: 10px 4px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); }
+.goal:hover { background: #ECEEF2; color: var(--ink); }
+.goal .t { flex: 1 1 200px; min-width: 0; font-size: 18px; font-weight: 700; }
+.goal .g { display: block; font-size: 13px; font-weight: 500; color: var(--gray); }
+.sqs { display: inline-flex; gap: 3px; flex: 0 1 260px; flex-wrap: wrap; }
+.sqs i { display: block; width: 14px; height: 14px; border: 1.5px solid var(--red); background: #fff; }
+.sqs i.k { border-color: var(--ink); background: var(--ink); }
+.goal .n { flex: 0 0 100px; font-size: 14px; font-weight: 500; color: var(--gray); }
+.goal .n b, .goal .h { font-family: var(--latin); font-weight: 700; color: var(--ink); }
+.goal .n b { font-size: 22px; }
+.goal .h { flex: 0 0 96px; text-align: right; font-size: 26px; line-height: 1; }
+.goal .h span { font-size: 14px; font-weight: 600; letter-spacing: 0.06em; color: var(--gray); margin-left: 4px; }
+
+/* ツリー */
+.treebox { overflow-x: auto; margin-top: 8px; }
+.tree { position: relative; margin: 0 auto; }
+.tree svg { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+.tree path { fill: none; stroke: var(--off); }
+.tree path.must { stroke-width: 6; }
+.tree path.helps { stroke-width: 2; }
+.tree path.known { stroke: var(--ink); }
+.tree path.path { stroke: var(--red); }
+.nd { position: absolute; width: 116px; height: 46px; padding: 0 4px; border: 1px solid var(--ink); border-radius: 0; background: var(--ground); color: var(--ink); cursor: pointer; text-align: center; line-height: 1; }
+.nd .t { display: block; font-size: 14px; line-height: 20px; font-weight: 700; white-space: nowrap; overflow: hidden; }
+.nd .t b { font-family: var(--latin); font-size: 16px; color: var(--red); margin-right: 4px; }
+.nd .c { display: block; font-family: var(--latin); font-size: 12px; line-height: 14px; font-weight: 600; letter-spacing: 0.06em; color: var(--gray); }
+.nd.rest { background: #fff; border-color: var(--red); box-shadow: inset 0 0 0 1px var(--red); }
+.nd.known { background: var(--ink); color: #fff; }
+.nd.known .c { color: #fff; }
+.nd.goalnode { background: var(--red); border-color: var(--red); color: #fff; }
+.nd.goalnode .c, .nd.goalnode .t b { color: #fff; }
+.nd.sel { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+/* 下段 */
+.cols { display: flex; gap: 40px 56px; flex-wrap: wrap; padding-top: 24px; }
+.cols > div { flex: 1 1 380px; min-width: 0; }
+.steps { margin-top: 12px; border-top: 1px solid var(--ink); }
+.step { width: 100%; display: flex; align-items: center; gap: 14px; min-height: 50px; padding: 8px 4px; border: 0; border-bottom: 1px solid var(--line); background: none; color: var(--ink); font-size: 15px; text-align: left; cursor: pointer; }
+.step:hover { background: #ECEEF2; }
+.step .no { width: 30px; height: 30px; flex: none; background: var(--red); color: #fff; text-align: center; font-family: var(--latin); font-size: 16px; font-weight: 700; line-height: 30px; }
+.step .t { flex: 1; min-width: 0; font-weight: 700; }
+.step .h { font-family: var(--latin); font-size: 16px; font-weight: 600; letter-spacing: 0.04em; color: var(--gray); }
+.detail h3 { margin: 12px 0 0; font-size: 26px; line-height: 1.3; font-weight: 900; letter-spacing: 0.04em; }
+.detail .meta { margin-top: 6px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 13px; }
+.detail .blk { margin-top: 16px; }
+.detail .blk .btns, .detail .blk p { margin: 6px 0 0; }
+.note { margin-top: 8px; font-size: 13px; font-weight: 500; color: var(--gray); }
+.res { display: flex; align-items: center; gap: 8px 14px; flex-wrap: wrap; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.res .a { font-size: 13px; color: var(--gray); }
+
+/* 診断 */
+.card { border: 1px solid var(--ink); background: #fff; padding: 40px 36px; margin-top: 36px; }
+.card .q { margin-top: 8px; font-size: 30px; line-height: 1.5; font-weight: 700; }
+.card .btns { margin-top: 28px; gap: 12px; }
+.strip { margin-top: 14px; display: flex; gap: 6px; flex-wrap: wrap; }
+.strip span { flex: 1 1 120px; min-height: 46px; display: inline-flex; align-items: center; justify-content: center; padding: 4px 6px; border: 1px solid var(--ink); font-size: 14px; font-weight: 700; text-align: center; }
+.strip .ok { background: var(--ink); color: #fff; }
+.strip .cur { background: #fff; border-color: var(--red); box-shadow: inset 0 0 0 1px var(--red); }
+.strip .far { border-color: #A9AFBA; color: #676D7A; }
+
+@media (max-width: 640px) {
+  .wrap { padding: 0 16px; }
+  .band { padding: 20px; }
+  .band h1 { font-size: 32px; }
+  .stat .v { font-size: 40px; }
+  .hero { padding-top: 40px; }
+  .hero label { font-size: 64px; }
+  .card { padding: 24px 20px; }
+  .card .q { font-size: 22px; }
+}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"math-school":"中学までの数学","spi":"SPI対策","hs-math":"高校1年の数学"}},"nodes":{"hs-data":{"id":"hs-data","name":"データの分析","type":"learn","goal":"四分位数、分散、相関を求めて、データの傾向を説明できる。","part_of":"hs-math","status":"draft","cost":{"hours":12,"yen":0},"requires":[{"id":"math-average","level":"must"}]},"hs-expressions":{"id":"hs-expressions","name":"数と式","type":"learn","goal":"式の展開と因数分解、一次不等式ができる。","part_of":"hs-math","status":"draft","cost":{"hours":20,"yen":0},"requires":[{"id":"math-sqrt","level":"must"},{"id":"math-linear-eq","level":"must"}]},"hs-quadratic":{"id":"hs-quadratic","name":"二次関数の応用","type":"learn","goal":"二次関数の最大と最小を求め、二次不等式を解ける。","part_of":"hs-math","status":"draft","cost":{"hours":25,"yen":0},"requires":[{"id":"math-quadratic-fn","level":"must"},{"id":"hs-expressions","level":"must"}]},"hs-trig":{"id":"hs-trig","name":"三角比","type":"learn","goal":"正弦、余弦、正接を使って、辺の長さや面積を求められる。","part_of":"hs-math","status":"draft","cost":{"hours":20,"yen":0},"requires":[{"id":"math-similarity","level":"must"},{"id":"math-pythagoras","level":"must"}]},"kounin-math":{"id":"kounin-math","name":"高卒認定の数学","type":"learn","goal":"高卒認定試験の数学で、合格点を取れる。","part_of":"hs-math","status":"draft","featured":true,"cost":{"hours":20,"yen":0},"requires":[{"id":"hs-expressions","level":"must"},{"id":"hs-quadratic","level":"must"},{"id":"hs-trig","level":"must"},{"id":"hs-data","level":"must"}]},"math-addsub":{"id":"math-addsub","name":"たし算ひき算","type":"learn","goal":"2けたのたし算とひき算を、暗算か筆算でできる。","part_of":"math-school","status":"draft","trunk":1,"check":"48 + 37 を計算する","cost":{"hours":10,"yen":0}},"math-angle":{"id":"math-angle","name":"角度と三角形","type":"learn","goal":"分度器で角度を測り、三角形の角の和を使える。","part_of":"math-school","status":"draft","cost":{"hours":10,"yen":0},"requires":[{"id":"math-shapes","level":"must"}]},"math-area":{"id":"math-area","name":"面積と体積","type":"learn","goal":"基本の図形の面積と、直方体の体積を求められる。","part_of":"math-school","status":"draft","cost":{"hours":15,"yen":0},"requires":[{"id":"math-muldiv","level":"must"},{"id":"math-shapes","level":"must"}]},"math-average":{"id":"math-average","name":"平均とデータ","type":"learn","goal":"平均値と中央値を求め、散らばりを説明できる。","part_of":"math-school","status":"draft","cost":{"hours":10,"yen":0},"requires":[{"id":"math-fraction","level":"must"},{"id":"math-table","level":"helps"}]},"math-circle":{"id":"math-circle","name":"円と円周率","type":"learn","goal":"円周の長さと円の面積を求められる。","part_of":"math-school","status":"draft","cost":{"hours":8,"yen":0},"requires":[{"id":"math-area","level":"must"}]},"math-congruence":{"id":"math-congruence","name":"合同と証明","type":"learn","goal":"三角形の合同条件を使って、証明を書ける。","part_of":"math-school","status":"draft","cost":{"hours":20,"yen":0},"requires":[{"id":"math-angle","level":"must"}]},"math-fraction":{"id":"math-fraction","name":"小数と分数","type":"learn","goal":"小数と分数の四則計算ができ、互いに変換できる。","part_of":"math-school","status":"draft","trunk":3,"check":"2/3 ÷ 4/5 を計算する","cost":{"hours":40,"yen":0},"requires":[{"id":"math-muldiv","level":"must"}]},"math-linear-eq":{"id":"math-linear-eq","name":"方程式","type":"learn","goal":"一次方程式を解き、文章題に使える。","part_of":"math-school","status":"draft","featured":true,"trunk":5,"check":"3x + 5 = 20 のとき、x を求める","cost":{"hours":20,"yen":0},"requires":[{"id":"math-negative","level":"must"}]},"math-linear-fn":{"id":"math-linear-fn","name":"一次関数","type":"learn","goal":"傾きと切片から式を作り、グラフを書ける。","part_of":"math-school","status":"draft","trunk":6,"check":"2点 (0, 1) と (2, 5) を通る直線の式を求める","cost":{"hours":25,"yen":0},"requires":[{"id":"math-linear-eq","level":"must"},{"id":"math-proportion","level":"helps"}]},"math-muldiv":{"id":"math-muldiv","name":"かけ算わり算","type":"learn","goal":"九九を使って、筆算のかけ算とわり算ができる。","part_of":"math-school","status":"draft","trunk":2,"check":"36 × 24 を計算する","cost":{"hours":20,"yen":0},"requires":[{"id":"math-addsub","level":"must"}]},"math-negative":{"id":"math-negative","name":"正負の数","type":"learn","goal":"負の数を含む四則計算ができる。","part_of":"math-school","status":"draft","trunk":4,"check":"(−3) × 4 − (−6) を計算する","cost":{"hours":8,"yen":0},"requires":[{"id":"math-fraction","level":"must"}]},"math-probability":{"id":"math-probability","name":"確率","type":"learn","goal":"樹形図を書いて、場合の数と確率を求められる。","part_of":"math-school","status":"draft","cost":{"hours":15,"yen":0},"requires":[{"id":"math-ratio","level":"must"},{"id":"math-average","level":"helps"}]},"math-proportion":{"id":"math-proportion","name":"比例と反比例","type":"learn","goal":"比例と反比例を、式とグラフで表せる。","part_of":"math-school","status":"draft","cost":{"hours":12,"yen":0},"requires":[{"id":"math-ratio","level":"must"}]},"math-pythagoras":{"id":"math-pythagoras","name":"三平方の定理","type":"learn","goal":"直角三角形の辺の長さを求められる。","part_of":"math-school","status":"draft","cost":{"hours":12,"yen":0},"requires":[{"id":"math-sqrt","level":"must"},{"id":"math-congruence","level":"helps"}]},"math-quadratic-eq":{"id":"math-quadratic-eq","name":"二次方程式","type":"learn","goal":"因数分解と解の公式で、二次方程式を解ける。","part_of":"math-school","status":"draft","cost":{"hours":20,"yen":0},"requires":[{"id":"math-linear-eq","level":"must"},{"id":"math-sqrt","level":"must"}]},"math-quadratic-fn":{"id":"math-quadratic-fn","name":"二次関数","type":"learn","goal":"放物線のグラフを書き、変化の割合を求められる。","part_of":"math-school","status":"draft","featured":true,"trunk":7,"check":"y = 2x² で、x が 1 から 3 まで増えるときの変化の割合を求める","cost":{"hours":25,"yen":0},"requires":[{"id":"math-linear-fn","level":"must"},{"id":"math-quadratic-eq","level":"helps"}]},"math-ratio":{"id":"math-ratio","name":"割合と比","type":"learn","goal":"百分率と比を使って、もとの量や比べる量を求められる。","part_of":"math-school","status":"draft","featured":true,"cost":{"hours":15,"yen":0},"requires":[{"id":"math-fraction","level":"must"}]},"math-shapes":{"id":"math-shapes","name":"形と長さ","type":"learn","goal":"基本の図形を見分け、ものさしで長さを測れる。","part_of":"math-school","status":"draft","cost":{"hours":8,"yen":0}},"math-similarity":{"id":"math-similarity","name":"相似","type":"learn","goal":"相似条件を使って、辺の長さの比を求められる。","part_of":"math-school","status":"draft","cost":{"hours":15,"yen":0},"requires":[{"id":"math-congruence","level":"must"}]},"math-simultaneous":{"id":"math-simultaneous","name":"連立方程式","type":"learn","goal":"加減法と代入法で、連立方程式を解ける。","part_of":"math-school","status":"draft","cost":{"hours":15,"yen":0},"requires":[{"id":"math-linear-eq","level":"must"}]},"math-sqrt":{"id":"math-sqrt","name":"平方根","type":"learn","goal":"根号を含む式の計算ができる。","part_of":"math-school","status":"draft","cost":{"hours":12,"yen":0},"requires":[{"id":"math-negative","level":"must"}]},"math-table":{"id":"math-table","name":"表とグラフ","type":"learn","goal":"表にまとめ、棒グラフと折れ線グラフを読める。","part_of":"math-school","status":"draft","cost":{"hours":8,"yen":0},"requires":[{"id":"math-muldiv","level":"helps"}]},"spi-counting":{"id":"spi-counting","name":"順列と組合せ","type":"learn","goal":"並べ方と選び方の数を、式で求められる。","part_of":"spi","status":"draft","cost":{"hours":10,"yen":0},"requires":[{"id":"math-muldiv","level":"must"}]},"spi-discount":{"id":"spi-discount","name":"料金の割引","type":"learn","goal":"団体割引など、条件つきの料金の合計を求められる。","part_of":"spi","status":"draft","cost":{"hours":4,"yen":0},"requires":[{"id":"math-ratio","level":"must"}]},"spi-inference":{"id":"spi-inference","name":"推論","type":"learn","goal":"与えられた条件から、順位や内訳について必ず言えることを判断できる。","part_of":"spi","status":"draft","cost":{"hours":12,"yen":0}},"spi-nonverbal":{"id":"spi-nonverbal","name":"SPI非言語","type":"learn","goal":"SPIの非言語分野の問題を、制限時間内に解ける。","part_of":"spi","status":"draft","featured":true,"cost":{"hours":15,"yen":0},"requires":[{"id":"spi-profit","level":"must"},{"id":"spi-discount","level":"must"},{"id":"spi-speed","level":"must"},{"id":"spi-work","level":"must"},{"id":"spi-sets","level":"must"},{"id":"spi-counting","level":"must"},{"id":"math-probability","level":"must"},{"id":"spi-tables","level":"must"},{"id":"spi-inference","level":"must"}]},"spi-profit":{"id":"spi-profit","name":"損益算","type":"learn","goal":"原価、定価、利益の関係から、売値や利益率を求められる。","part_of":"spi","status":"draft","cost":{"hours":6,"yen":0},"requires":[{"id":"math-ratio","level":"must"}]},"spi-sets":{"id":"spi-sets","name":"集合","type":"learn","goal":"ベン図を書いて、重なりのある人数を求められる。","part_of":"spi","status":"draft","cost":{"hours":5,"yen":0},"requires":[{"id":"math-addsub","level":"must"}]},"spi-speed":{"id":"spi-speed","name":"速さと時間","type":"learn","goal":"速さ、時間、距離の関係を使って、出会いや追いつきの問題を解ける。","part_of":"spi","status":"draft","cost":{"hours":8,"yen":0},"requires":[{"id":"math-fraction","level":"must"},{"id":"math-linear-eq","level":"helps"}]},"spi-tables":{"id":"spi-tables","name":"表の読み取り","type":"learn","goal":"複数の表から必要な数値を拾い、割合や増減を計算できる。","part_of":"spi","status":"draft","cost":{"hours":6,"yen":0},"requires":[{"id":"math-table","level":"must"},{"id":"math-ratio","level":"must"}]},"spi-work":{"id":"spi-work","name":"仕事算","type":"learn","goal":"全体を1として、複数人での仕事にかかる日数を求められる。","part_of":"spi","status":"draft","cost":{"hours":6,"yen":0},"requires":[{"id":"math-fraction","level":"must"}]}}};
+</script>
+<script>
+(function () {
+  'use strict';
+
+  var DATA = window.HOWTREE_DATA;
+  var N = DATA.nodes;
+  var CFG = DATA.config;
+  var app = document.getElementById('app');
+
+  // ---- 端末内の保存 ----
+  var KNOWN_KEY = 'howtree.known.v1';
+  var REPORT_KEY = 'howtree.reports.v1';
+  function load(key) {
+    try { return JSON.parse(localStorage.getItem(key)); } catch (e) { return null; }
+  }
+  function save(key, value) {
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* 保存できなくても動かす */ }
+  }
+  var known = {};
+  (load(KNOWN_KEY) || []).forEach(function (id) { if (N[id]) known[id] = 1; });
+  function persist() { save(KNOWN_KEY, Object.keys(known)); }
+
+  // ---- グラフ ----
+  var FLOW = ['must', 'helps'];
+  function reqs(id, levels) {
+    return (N[id].requires || []).filter(function (r) { return levels.indexOf(r.level) >= 0; }).map(function (r) { return r.id; });
+  }
+  function closure(id, levels) {
+    var seen = {};
+    (function go(k) {
+      reqs(k, levels).forEach(function (p) { if (!seen[p]) { seen[p] = 1; go(p); } });
+    })(id);
+    return seen;
+  }
+  function mustAnc(id) { return closure(id, ['must']); }
+  var depthMemo = {};
+  function depth(id) {
+    if (depthMemo[id] === undefined) {
+      var ps = reqs(id, FLOW);
+      depthMemo[id] = ps.length ? 1 + Math.max.apply(null, ps.map(depth)) : 0;
+    }
+    return depthMemo[id];
+  }
+  function byDepth(a, b) { return depth(a) - depth(b) || (a < b ? -1 : 1); }
+  function hours(id) { return (N[id].cost && N[id].cost.hours) || 0; }
+  function yen(id) { return (N[id].cost && N[id].cost.yen) || 0; }
+
+  // 目標までの計画: 必須の前提のうち、まだ習得していないもの
+  function plan(goal) {
+    var all = mustAnc(goal);
+    all[goal] = 1;
+    var rest = Object.keys(all).filter(function (k) { return !known[k]; }).sort(byDepth);
+    var restSet = {};
+    rest.forEach(function (k) { restSet[k] = 1; });
+    return {
+      all: Object.keys(all).sort(byDepth),
+      rest: rest,
+      restSet: restSet,
+      hours: rest.reduce(function (s, k) { return s + hours(k); }, 0),
+      yen: rest.reduce(function (s, k) { return s + yen(k); }, 0)
+    };
+  }
+  function markKnown(id) {
+    known[id] = 1;
+    Object.keys(mustAnc(id)).forEach(function (k) { known[k] = 1; });
+    persist();
+  }
+  function unmarkKnown(id) {
+    delete known[id];
+    Object.keys(known).forEach(function (k) { if (mustAnc(k)[id]) delete known[k]; });
+    persist();
+  }
+
+  // ---- 表示の部品 ----
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function header(right) {
+    return '<div class="hd"><a class="brand" href="#/">' +
+      '<span class="logo"><i class="b1"></i><i class="b2"></i><i class="c1"></i><i class="c2"></i><i class="c3"></i></span>' +
+      '<span class="word"><small>HOW TO<br>LEARN ANYTHING</small><b>' + esc(CFG.name) + '</b></span></a>' +
+      '<div class="right">' + (right || '') + '</div></div>';
+  }
+  function footer() {
+    return '<div class="foot">HOW TO LEARN ANYTHING ｜ ' + esc(CFG.name) + '　試作品。内容はAIの下書きで、未検証。</div>';
+  }
+  function yenText(v) { return v.toLocaleString('ja-JP'); }
+
+  // ---- トップ ----
+  var topMessage = '';
+  function viewTop() {
+    var names = Object.keys(N).map(function (k) { return '<option value="' + esc(N[k].name) + '">'; }).join('');
+    var goals = Object.keys(N).filter(function (k) { return N[k].featured; }).map(function (k) {
+      return { id: k, p: plan(k) };
+    }).sort(function (a, b) {
+      return (a.p.rest.length === 0) - (b.p.rest.length === 0) || a.p.hours - b.p.hours;
+    });
+    var rows = goals.map(function (g) {
+      var sq = g.p.all.map(function (k) { return '<i class="' + (known[k] ? 'k' : '') + '"></i>'; }).join('');
+      var done = g.p.rest.length === 0;
+      return '<a class="goal" href="#/g/' + g.id + '">' +
+        '<span class="t">' + esc(N[g.id].name) + '<span class="g">' + esc(CFG.groups[N[g.id].part_of] || '') + '</span></span>' +
+        '<span class="sqs" aria-hidden="true">' + sq + '</span>' +
+        (done
+          ? '<span class="n">習得済み</span><span class="h"></span>'
+          : '<span class="n">残り <b>' + g.p.rest.length + '</b> 単元</span><span class="h">' + g.p.hours + '<span>H</span></span>') +
+        '</a>';
+    }).join('');
+    var knownCount = Object.keys(known).length;
+    app.innerHTML = '<div class="wrap narrow">' + header() +
+      '<div class="hero"><form data-act="search">' +
+      '<label for="goal-input">How to</label>' +
+      '<div class="field"><input id="goal-input" type="text" list="goal-names" placeholder="SPI非言語" autocomplete="off">' +
+      '<datalist id="goal-names">' + names + '</datalist>' +
+      '<button class="go" type="submit">道を見る</button></div></form>' +
+      '<div class="lead">' + (topMessage ? esc(topMessage) : '目標を入れると、今の自分からそこまでに必要な学習だけが見える。') + '</div></div>' +
+      '<div class="sec"><div class="sechead"><div><div class="rule"></div><h2>今の自分から近い目標</h2></div>' +
+      '<div class="right"><span class="sub">現在地</span><span class="badge fill">習得済み ' + knownCount + ' 単元</span>' +
+      '<a class="link" href="#/check">現在地を調べる</a>' +
+      (knownCount ? '<button class="link" type="button" data-act="reset">最初からにする</button>' : '') +
+      '</div></div>' +
+      '<div class="goals">' + rows + '</div>' +
+      '<div class="legend" style="margin-top:12px"><span><i style="background:var(--ink)"></i>習得済み</span>' +
+      '<span><i style="border:1.5px solid var(--red);background:#fff"></i>これから進む</span></div></div>' +
+      footer() + '</div>';
+    topMessage = '';
+  }
+
+  // ---- ツリーの配置 ----
+  var BW = 116, BH = 46, COLW = 190, ROWH = 68, PADX = 24, PADY = 20, PULL = 0.85;
+  function layout(goal) {
+    var S = closure(goal, FLOW);
+    S[goal] = 1;
+    var ids = Object.keys(S);
+    var col = {};
+    function colOf(id) {
+      if (col[id] === undefined) {
+        var ps = reqs(id, FLOW);
+        col[id] = ps.length ? 1 + Math.max.apply(null, ps.map(colOf)) : 0;
+      }
+      return col[id];
+    }
+    ids.forEach(colOf);
+    var maxCol = Math.max.apply(null, ids.map(function (k) { return col[k]; }));
+    var layers = [];
+    for (var c = 0; c <= maxCol; c++) layers.push([]);
+    var items = {};
+    function add(key, c2) {
+      items[key] = { key: key, col: c2, up: [], down: [] };
+      layers[c2].push(key);
+    }
+    ids.sort(byDepth).forEach(function (k) { add(k, col[k]); });
+    var edges = [];
+    ids.forEach(function (v) {
+      (N[v].requires || []).forEach(function (r) {
+        if (FLOW.indexOf(r.level) < 0) return;
+        var u = r.id, chain = [u];
+        for (var c3 = col[u] + 1; c3 < col[v]; c3++) {
+          var key = u + '>' + v + '#' + c3;
+          add(key, c3);
+          chain.push(key);
+        }
+        chain.push(v);
+        for (var i = 0; i < chain.length - 1; i++) {
+          items[chain[i]].down.push(chain[i + 1]);
+          items[chain[i + 1]].up.push(chain[i]);
+        }
+        edges.push({ a: u, b: v, level: r.level, chain: chain });
+      });
+    });
+    // 交差を減らす: 隣の列での平均位置で並べ替える
+    var pos = {};
+    function index() {
+      layers.forEach(function (L) { L.forEach(function (k, i) { pos[k] = i; }); });
+    }
+    index();
+    function sweep(L, side) {
+      var bc = {};
+      L.forEach(function (k) {
+        var ns = items[k][side];
+        bc[k] = ns.length ? ns.reduce(function (s, n) { return s + pos[n]; }, 0) / ns.length : pos[k];
+      });
+      L.sort(function (a, b) { return bc[a] - bc[b]; });
+      index();
+    }
+    for (var t = 0; t < 6; t++) {
+      for (var d = 1; d <= maxCol; d++) sweep(layers[d], 'up');
+      for (var u2 = maxCol - 1; u2 >= 0; u2--) sweep(layers[u2], 'down');
+    }
+    var maxRows = Math.max.apply(null, layers.map(function (L) { return L.length; }));
+    var height = PADY * 2 + maxRows * ROWH;
+    var xy = {};
+    layers.forEach(function (L, c4) {
+      L.forEach(function (k, i) {
+        xy[k] = { x: PADX + c4 * COLW, y: height / 2 + (i - (L.length - 1) / 2) * ROWH };
+      });
+    });
+    edges.forEach(function (e) {
+      var d2 = '';
+      for (var i = 0; i < e.chain.length - 1; i++) {
+        var p = xy[e.chain[i]], q = xy[e.chain[i + 1]];
+        var x1 = p.x + BW, x2 = q.x, dx = x2 - x1;
+        if (i === 0) d2 += 'M' + x1 + ' ' + p.y;
+        d2 += ' C' + (x1 + dx * PULL) + ' ' + p.y + ' ' + (x1 + dx * (1 - PULL)) + ' ' + q.y + ' ' + x2 + ' ' + q.y;
+        if (i < e.chain.length - 2) d2 += ' L' + (q.x + BW) + ' ' + q.y;
+      }
+      e.d = d2;
+    });
+    return {
+      width: PADX * 2 + maxCol * COLW + BW,
+      height: height,
+      nodes: ids.map(function (k) { return { id: k, x: xy[k].x, y: xy[k].y - BH / 2 }; }),
+      edges: edges
+    };
+  }
+
+  // ---- 目標ページ ----
+  var selected = null;
+  var reportMode = '';
+  function viewGoal(goal) {
+    if (!N[goal]) { location.hash = '#/'; return; }
+    if (!selected || !N[selected]) selected = goal;
+    var p = plan(goal);
+    var L = layout(goal);
+    var num = {};
+    p.rest.forEach(function (k, i) { num[k] = i + 1; });
+    var rank = { off: 0, known: 1, path: 2 };
+    var paths = L.edges.map(function (e) {
+      var state = 'off';
+      if (e.level === 'must' && p.restSet[e.b] && (p.restSet[e.a] || known[e.a])) state = 'path';
+      else if (e.level === 'must' && known[e.a] && known[e.b]) state = 'known';
+      return { state: state, html: '<path class="' + e.level + ' ' + state + '" d="' + e.d + '"></path>' };
+    }).sort(function (a, b) { return rank[a.state] - rank[b.state]; }).map(function (x) { return x.html; }).join('');
+    var boxes = L.nodes.map(function (n) {
+      var k = n.id, cls = 'nd';
+      if (k === goal && !known[k]) cls += ' goalnode';
+      else if (p.restSet[k]) cls += ' rest';
+      else if (known[k]) cls += ' known';
+      if (k === selected) cls += ' sel';
+      return '<button type="button" class="' + cls + '" data-act="select" data-id="' + k + '" style="left:' + n.x + 'px;top:' + n.y + 'px">' +
+        '<span class="t">' + (num[k] ? '<b>' + num[k] + '</b>' : '') + esc(N[k].name) + '</span>' +
+        '<span class="c">' + hours(k) + ' H</span></button>';
+    }).join('');
+    var steps = p.rest.length
+      ? p.rest.map(function (k) {
+        return '<button type="button" class="step" data-act="select" data-id="' + k + '"><span class="no">' + num[k] + '</span>' +
+          '<span class="t">' + esc(N[k].name) + '</span><span class="h">' + hours(k) + ' H</span></button>';
+      }).join('')
+      : '<p class="muted">この目標は、すでに習得済み。</p>';
+    app.innerHTML = '<div class="wrap">' + header('<a class="link" href="#/check">現在地を調べる</a>') +
+      '<div class="band"><div class="main"><span class="tag">目標</span><h1>' + esc(N[goal].name) + '</h1><p>' + esc(N[goal].goal) + '</p></div>' +
+      '<div class="stats"><div class="stat"><div class="k">残り</div><div class="v">' + p.rest.length + '<span class="jp">単元</span></div></div>' +
+      '<div class="stat"><div class="k">学習時間</div><div class="v">' + p.hours + '<span class="jp">時間</span></div></div>' +
+      (p.yen ? '<div class="stat"><div class="k">費用</div><div class="v">' + yenText(p.yen) + '<span class="jp">円</span></div></div>' : '') +
+      '</div></div>' +
+      '<div class="legend" style="margin-top:20px"><span><i style="border:2px solid var(--red);background:#fff"></i>これから進む</span>' +
+      '<span><i style="background:var(--ink)"></i>習得済み</span>' +
+      '<span><i style="border:1px solid var(--ink)"></i>通らなくてよい</span>' +
+      '<span><i style="height:2px;width:22px;background:var(--gray)"></i>細い線は「あると楽」</span></div>' +
+      '<div class="treebox"><div class="tree" style="width:' + L.width + 'px;height:' + L.height + 'px">' +
+      '<svg width="' + L.width + '" height="' + L.height + '" aria-hidden="true">' + paths + '</svg>' + boxes + '</div></div>' +
+      '<div class="cols"><div><div class="rule"></div><h2>進む順番</h2><div class="steps">' + steps + '</div></div>' +
+      '<div class="detail">' + detail(selected, goal) + '</div></div>' +
+      footer() + '</div>';
+  }
+
+  function chips(ids, cls) {
+    if (!ids.length) return '<p class="muted">なし</p>';
+    return '<div class="btns">' + ids.map(function (k) {
+      return '<button type="button" class="chip ' + cls + (known[k] ? ' known' : '') + '" data-act="select" data-id="' + k + '">' + esc(N[k].name) + '</button>';
+    }).join('') + '</div>';
+  }
+  function detail(id, goal) {
+    var n = N[id];
+    var res = (n.resources || []).map(function (r) {
+      return '<div class="res"><span class="badge' + (r.free ? ' fill' : '') + '">' + (r.free ? '無料' : '本') + '</span>' +
+        '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.title) + '</a>' +
+        (r.assumes ? '<span class="a">前提: ' + esc(r.assumes) + '</span>' : '') + '</div>';
+    }).join('');
+    var tag = CFG.amazon_tag ? '&tag=' + encodeURIComponent(CFG.amazon_tag) : '';
+    var search = 'https://www.amazon.co.jp/s?k=' + encodeURIComponent(n.name + ' 入門') + tag;
+    var report = '';
+    if (reportMode === 'done') {
+      report = '<p class="sub" style="margin-top:12px">かかった時間は、' + hours(id) + '時間と比べてどうだった</p><div class="btns">' +
+        ['短かった', '同じくらい', '長かった'].map(function (v) { return '<button type="button" class="chip" data-act="report-send" data-v="' + v + '">' + v + '</button>'; }).join('') + '</div>';
+    } else if (reportMode === 'stuck') {
+      var opts = Object.keys(closure(id, FLOW)).sort(byDepth).reverse().slice(0, 6);
+      report = '<p class="sub" style="margin-top:12px">抜けていたと思う前提はどれ</p><div class="btns">' +
+        opts.map(function (k) { return '<button type="button" class="chip" data-act="report-send" data-v="' + k + '">' + esc(N[k].name) + '</button>'; }).join('') +
+        '<button type="button" class="chip" data-act="report-send" data-v="unknown">わからない</button></div>';
+    } else if (reportMode === 'res') {
+      report = '<p class="sub" style="margin-top:12px">合わなかった理由はどれ</p><div class="btns">' +
+        ['難しすぎた', '簡単すぎた', '内容が違った'].map(function (v) { return '<button type="button" class="chip" data-act="report-send" data-v="' + v + '">' + v + '</button>'; }).join('') + '</div>';
+    } else if (reportMode === 'sent') {
+      report = '<p class="note">この端末に記録した。試作品のため、まだ送信はされない。</p>';
+    }
+    return '<div class="rule"></div><h2>選択中の単元</h2>' +
+      '<h3>' + esc(n.name) + '</h3>' +
+      '<div class="meta"><span class="badge">' + (n.status === 'verified' ? '検証済み' : 'AI下書き・未検証') + '</span>' +
+      '<span class="muted">' + esc(CFG.groups[n.part_of] || '') + ' ・ ' + hours(id) + '時間' + (yen(id) ? ' ・ ' + yenText(yen(id)) + '円' : '') + '</span></div>' +
+      '<div class="blk"><div class="sub">到達条件</div><p>' + esc(n.goal) + '</p></div>' +
+      '<div class="blk"><div class="sub">必須の前提</div>' + chips(reqs(id, ['must']), '') + '</div>' +
+      '<div class="blk"><div class="sub">あると楽</div>' + chips(reqs(id, ['helps']), 'helps') + '</div>' +
+      '<div class="blk"><div class="sub">読む資料</div>' + (res || '<p class="muted">資料はまだ選ばれていない。</p>') +
+      '<p><a class="link" href="' + search + '" target="_blank" rel="noopener">この単元の本を探す</a>' + (CFG.amazon_tag ? ' <span class="note">紹介リンク</span>' : '') + '</p></div>' +
+      '<div class="blk btns">' +
+      (id !== goal ? '<a class="btn red" href="#/g/' + id + '">ここを目標にする</a>' : '') +
+      (known[id]
+        ? '<button type="button" class="btn" data-act="unknow" data-id="' + id + '">習得済みを取り消す</button>'
+        : '<button type="button" class="btn fill" data-act="know" data-id="' + id + '">習得済みにする</button>') +
+      '</div>' +
+      '<div class="blk"><div class="sub">報告する</div><div class="btns">' +
+      [['done', 'できた'], ['stuck', 'つまずいた'], ['res', '資料が合わない']].map(function (b) {
+        return '<button type="button" class="btn' + (reportMode === b[0] ? ' fill' : '') + '" data-act="report" data-v="' + b[0] + '">' + b[1] + '</button>';
+      }).join('') + '</div>' + report + '</div>';
+  }
+
+  // ---- 現在地の診断 ----
+  var trunk = Object.keys(N).filter(function (k) { return N[k].trunk && N[k].check; }).sort(function (a, b) { return N[a].trunk - N[b].trunk; });
+  var chk = null;
+  function viewCheck() {
+    if (!chk) chk = { lo: -1, hi: trunk.length, count: 0 };
+    var done = chk.hi - chk.lo <= 1;
+    var mid = Math.floor((chk.lo + chk.hi) / 2);
+    var strip = trunk.map(function (k, i) {
+      var cls = i <= chk.lo ? 'ok' : (!done && i === mid) ? 'cur' : i >= chk.hi ? 'far' : '';
+      return '<span class="' + cls + '">' + esc(N[k].name) + '</span>';
+    }).join('');
+    var card;
+    if (done) {
+      var result = chk.lo < 0 ? '最初の単元から始める' : '「' + esc(N[trunk[chk.lo]].name) + '」まで分かっている';
+      card = '<div class="sub">結果</div><div class="q">' + result + '</div><div class="btns">' +
+        '<button type="button" class="btn red big" data-act="check-apply">この結果を現在地にする</button>' +
+        '<button type="button" class="btn big" data-act="check-reset">やり直す</button></div>';
+    } else {
+      card = '<div class="sub">' + esc(N[trunk[mid]].name) + '</div><div class="q">' + esc(N[trunk[mid]].check) + '</div><div class="btns">' +
+        '<button type="button" class="btn fill big" data-act="check-yes">解ける</button>' +
+        '<button type="button" class="btn big" data-act="check-no">解けない</button>' +
+        '<button type="button" class="btn big" data-act="check-no">わからない言葉がある</button></div>' +
+        '<p class="note">答えを入力する必要はない。解けるかどうかだけ選ぶ。</p>';
+    }
+    var maxQ = Math.ceil(Math.log(trunk.length + 1) / Math.LN2);
+    app.innerHTML = '<div class="wrap narrow">' + header() +
+      '<div class="band"><div class="main"><span class="tag">現在地を調べる</span><h1 style="font-size:34px">' +
+      (done ? '現在地がわかった' : '次の問題は解けますか') + '</h1></div>' +
+      '<div class="stat"><div class="v">' + (done ? chk.count : chk.count + 1) + '<span class="jp">問目 / 最大' + maxQ + '問</span></div></div></div>' +
+      '<div class="card">' + card + '</div>' +
+      '<div class="sec" style="padding-top:40px"><div class="rule"></div><h2>調べている範囲</h2><div class="strip">' + strip + '</div>' +
+      '<p class="note">調べるのは数学の幹だけ。ほかの単元は、木の上で「習得済みにする」を押して直せる。</p></div>' +
+      footer() + '</div>';
+  }
+
+  // ---- 画面の切り替えと操作 ----
+  var lastGoal = null;
+  function render() {
+    var h = location.hash.replace(/^#\/?/, '');
+    if (h.indexOf('g/') === 0) {
+      var goal = decodeURIComponent(h.slice(2));
+      if (goal !== lastGoal) { selected = goal; reportMode = ''; lastGoal = goal; }
+      viewGoal(goal);
+    } else if (h === 'check') {
+      viewCheck();
+    } else {
+      viewTop();
+    }
+  }
+  function rerenderKeepingScroll() {
+    var box = document.querySelector('.treebox');
+    var sx = box ? box.scrollLeft : 0, sy = window.scrollY;
+    render();
+    box = document.querySelector('.treebox');
+    if (box) box.scrollLeft = sx;
+    window.scrollTo(0, sy);
+  }
+  window.addEventListener('hashchange', function () { render(); window.scrollTo(0, 0); });
+
+  app.addEventListener('click', function (ev) {
+    var el = ev.target.closest('[data-act]');
+    if (!el || el.tagName === 'FORM') return;
+    var act = el.getAttribute('data-act'), id = el.getAttribute('data-id'), v = el.getAttribute('data-v');
+    if (act === 'select') { selected = id; reportMode = ''; rerenderKeepingScroll(); }
+    else if (act === 'know') { markKnown(id); rerenderKeepingScroll(); }
+    else if (act === 'unknow') { unmarkKnown(id); rerenderKeepingScroll(); }
+    else if (act === 'report') { reportMode = v; rerenderKeepingScroll(); }
+    else if (act === 'report-send') {
+      var list = load(REPORT_KEY) || [];
+      list.push({ node: selected, kind: reportMode, value: v, at: new Date().toISOString() });
+      save(REPORT_KEY, list);
+      reportMode = 'sent';
+      rerenderKeepingScroll();
+    }
+    else if (act === 'reset') { known = {}; persist(); render(); }
+    else if (act === 'check-yes') { chk.lo = Math.floor((chk.lo + chk.hi) / 2); chk.count++; render(); }
+    else if (act === 'check-no') { chk.hi = Math.floor((chk.lo + chk.hi) / 2); chk.count++; render(); }
+    else if (act === 'check-reset') { chk = null; render(); }
+    else if (act === 'check-apply') {
+      if (chk.lo >= 0) markKnown(trunk[chk.lo]);
+      chk = null;
+      location.hash = '#/';
+    }
+  });
+  app.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var q = (document.getElementById('goal-input').value || '').trim();
+    if (!q) return;
+    var ids = Object.keys(N);
+    var hit = ids.filter(function (k) { return N[k].name === q; })[0] ||
+      ids.filter(function (k) { return N[k].name.indexOf(q) >= 0 || q.indexOf(N[k].name) >= 0; })[0];
+    if (hit) { location.hash = '#/g/' + hit; }
+    else { topMessage = '「' + q + '」の木は、まだない。'; render(); }
+  });
+
+  render();
+})();
+
+</script>
+</body>
+</html>
