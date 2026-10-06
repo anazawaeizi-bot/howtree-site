@@ -405,20 +405,74 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"mat
         xy[k] = { x: PADX + c4 * COLW, y: height / 2 + (i - (L.length - 1) / 2) * ROWH };
       });
     });
-    edges.forEach(function (e) {
-      var d2 = '';
-      for (var i = 0; i < e.chain.length - 1; i++) {
-        var p = xy[e.chain[i]], q = xy[e.chain[i + 1]];
-        var x1 = p.x + BW, x2 = q.x, dx = x2 - x1;
-        if (i === 0) d2 += 'M' + x1 + ' ' + p.y;
-        d2 += ' C' + (x1 + dx * PULL) + ' ' + p.y + ' ' + (x1 + dx * (1 - PULL)) + ' ' + q.y + ' ' + x2 + ' ' + q.y;
-        if (i < e.chain.length - 2) d2 += ' L' + (q.x + BW) + ' ' + q.y;
+    // 仮ノードは並べ替えにのみ使う。線は箱との衝突を調べて最短の形にする。
+    function segment(p, q) {
+      if (Math.abs(p.y - q.y) < 0.01) return {p:p, q:q, straight:true};
+      var dx=q.x-p.x;
+      return {p:p, q:q, c1:{x:p.x+dx*PULL,y:p.y}, c2:{x:p.x+dx*(1-PULL),y:q.y}};
+    }
+    function point(seg, t) {
+      if (seg.straight) return {x:seg.p.x+(seg.q.x-seg.p.x)*t,y:seg.p.y};
+      var u=1-t;
+      return {x:u*u*u*seg.p.x+3*u*u*t*seg.c1.x+3*u*t*t*seg.c2.x+t*t*t*seg.q.x,
+        y:u*u*u*seg.p.y+3*u*u*t*seg.c1.y+3*u*t*t*seg.c2.y+t*t*t*seg.q.y};
+    }
+    function clear(route, edge) {
+      var obstacles=ids.filter(function(k){return k!==edge.a && k!==edge.b;});
+      return route.every(function(seg){
+        // 約2pxごとに検査し、太い線と枠の間に余白を残す。
+        var samples=Math.max(16,Math.ceil((seg.q.x-seg.p.x+Math.abs(seg.q.y-seg.p.y))/2));
+        for(var i=0;i<=samples;i++) {
+          var v=point(seg,i/samples);
+          for(var j=0;j<obstacles.length;j++) {
+            var box=xy[obstacles[j]];
+            if(v.x>box.x-6 && v.x<box.x+BW+6 && v.y>box.y-BH/2-6 && v.y<box.y+BH/2+6) return false;
+          }
+        }
+        return true;
+      });
+    }
+    var usedBottom=0;
+    function routePath(route) {
+      route.forEach(function(seg){usedBottom=Math.max(usedBottom,seg.p.y,seg.q.y);});
+      var d='M'+route[0].p.x+' '+route[0].p.y;
+      route.forEach(function(seg){
+        if(seg.straight) d+=' L'+seg.q.x+' '+seg.q.y;
+        else d+=' C'+seg.c1.x+' '+seg.c1.y+' '+seg.c2.x+' '+seg.c2.y+' '+seg.q.x+' '+seg.q.y;
+      });
+      return d;
+    }
+    edges.forEach(function(e){
+      var a=xy[e.a], b=xy[e.b], start={x:a.x+BW,y:a.y}, end={x:b.x,y:b.y};
+      var direct=[segment(start,end)];
+      if(clear(direct,e)) { e.d=routePath(direct); return; }
+      // 途中の列は一本の水平な通路で抜ける。列ごとの蛇行を作らない。
+      var firstX=PADX+(col[e.a]+1)*COLW;
+      var lastX=PADX+(col[e.b]-1)*COLW+BW;
+      var lanes=[a.y,b.y,(a.y+b.y)/2,8,height-8];
+      ids.forEach(function(k){
+        if(col[k]>col[e.a] && col[k]<col[e.b]) {
+          lanes.push(xy[k].y-BH/2-8,xy[k].y+BH/2+8);
+        }
+      });
+      var candidates=lanes.filter(function(y,i){return y>=8 && y<=height-8 && lanes.indexOf(y)===i;}).map(function(y){
+        var route=[segment(start,{x:firstX,y:y}),segment({x:firstX,y:y},{x:lastX,y:y}),segment({x:lastX,y:y},end)];
+        return {route:route, score:Math.abs(y-a.y)+Math.abs(b.y-y), curves:route.filter(function(s){return !s.straight;}).length};
+      }).sort(function(x,y){return x.score-y.score || x.curves-y.curves;});
+      var chosen=candidates.filter(function(c){return clear(c.route,e);})[0];
+      if(chosen) {e.d=routePath(chosen.route); return;}
+      // 通路が塞がる特殊な配置だけ、箱を避ける従来の通過位置を使う。
+      var fallback=[];
+      for(var i=0;i<e.chain.length-1;i++) {
+        var p=xy[e.chain[i]], q=xy[e.chain[i+1]];
+        fallback.push(segment({x:p.x+BW,y:p.y},{x:q.x,y:q.y}));
+        if(i<e.chain.length-2) fallback.push(segment({x:q.x,y:q.y},{x:q.x+BW,y:q.y}));
       }
-      e.d = d2;
+      e.d=routePath(fallback);
     });
     return {
       width: PADX * 2 + maxCol * COLW + BW,
-      height: height,
+      height: Math.max(usedBottom, Math.max.apply(null,ids.map(function(k){return xy[k].y+BH/2;})))+PADY,
       nodes: ids.map(function (k) { return { id: k, x: xy[k].x, y: xy[k].y - BH / 2 }; }),
       edges: edges
     };
@@ -439,7 +493,7 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"mat
       var state = 'off';
       if (e.level === 'must' && p.restSet[e.b] && (p.restSet[e.a] || known[e.a])) state = 'path';
       else if (e.level === 'must' && known[e.a] && known[e.b]) state = 'known';
-      return { state: state, html: '<path class="' + e.level + ' ' + state + '" d="' + e.d + '"></path>' };
+      return { state: state, html: '<path data-from="'+e.a+'" data-to="'+e.b+'" class="' + e.level + ' ' + state + '" d="' + e.d + '"></path>' };
     }).sort(function (a, b) { return rank[a.state] - rank[b.state]; }).map(function (x) { return x.html; }).join('');
     var boxes = L.nodes.map(function (n) {
       var k = n.id, cls = 'nd';
