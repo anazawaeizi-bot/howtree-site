@@ -421,6 +421,13 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","systems":[{"i
   // ---- ツリーの配置 ----
   var BW = 116, BH = 46, COLW = 190, ROWH = 68, PADX = 24, PADY = 20, PULL = 0.85;
   var REGPAD = 12, REGGAP = 32, REGTOP = 32;
+  // 線を整えるための調整値。tests/layout.cjs --sweep で総当たりして決める。
+  var TUNE = window.HOWTREE_TUNE || {};
+  function tune(name, value) { return TUNE[name] === undefined ? value : TUNE[name]; }
+  var WRONG = tune('wrong', 200);      // 通路が並べ替えの順と食い違うときの重み(px相当)
+  var ROUNDS = tune('rounds', 2);      // 高さをそろえる往復の回数
+  var FINISH = tune('finish', 'both');   // 最後にそろえる相手。up=前提の側、both=両側
+  var STEP = tune('step', 16);         // 同じすき間で縦位置をずらす幅(px)
   function layout(goal, sys) {
     var S = closure(goal, FLOW);
     S[goal] = 1;
@@ -480,23 +487,23 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","systems":[{"i
       for (var d = 1; d <= maxCol; d++) sweep(layers[d], 'up');
       for (var u2 = maxCol - 1; u2 >= 0; u2--) sweep(layers[u2], 'down');
     }
-    var maxRows = Math.max.apply(null, layers.map(function (L) { return L.length; }));
+    // 仮ノードは並べ替えにだけ使い、場所は取らせない。置くのは実際の単元だけ。
+    var real = layers.map(function (L) { return L.filter(function (k) { return S[k]; }); });
+    var maxRows = Math.max.apply(null, real.map(function (L) { return L.length; }));
     var height = PADY * 2 + maxRows * ROWH;
     var xy = {};
     var regions = [];
+    var HALF = ROWH / 2, GAPW = COLW - BW;
+    // 列ごとの置き場。keys を上から順に、半行きざみの目盛り 0..max に置く(となりとは2目盛り以上あける)。
+    var stacks = [], bands = [];
     if (!sys) {
-      layers.forEach(function (L, c4) {
-        L.forEach(function (k, i) {
-          xy[k] = { x: PADX + c4 * COLW, y: height / 2 + (i - (L.length - 1) / 2) * ROWH };
-        });
-      });
+      real.forEach(function (L, c4) { stacks.push({ col: c4, keys: L, max: 2 * (maxRows - 1), y0: PADY + HALF }); });
     } else {
       // 囲いあり: 同じタグの単元を一つの帯にまとめる。タグのない単元は一つずつ別の帯にする。
       // 帯の中の上下の順は、交差を減らした並びをそのまま使う。
-      var bands = [], bandBy = {};
-      layers.forEach(function (L, c5) {
+      var bandBy = {};
+      real.forEach(function (L, c5) {
         L.forEach(function (k, i) {
-          if (!S[k]) return;
           var tag = tagIn(k, sys), key = tag >= 0 ? 't' + tag : 'n' + k;
           var b = bandBy[key];
           if (!b) { b = bandBy[key] = { tag: tag, c0: c5, c1: c5, cols: {}, sum: 0, n: 0 }; bands.push(b); }
@@ -532,88 +539,170 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","systems":[{"i
       height = REGTOP + inner + PADY;
       groups.forEach(function (g) {
         g.bands.forEach(function (b) {
-          var mid = REGTOP + (inner - g.h) / 2 + b.top + b.h / 2;
-          var x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-          Object.keys(b.cols).forEach(function (c7) {
-            b.cols[c7].forEach(function (k, i) {
-              var p = xy[k] = { x: PADX + c7 * COLW, y: mid + (i - (b.cols[c7].length - 1) / 2) * ROWH };
-              x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x + BW);
-              y0 = Math.min(y0, p.y - BH / 2); y1 = Math.max(y1, p.y + BH / 2);
-            });
-          });
-          if (b.tag >= 0) regions.push({ name: sys.tags[b.tag].name, x: x0 - REGPAD, y: y0 - REGPAD, w: x1 - x0 + REGPAD * 2, h: y1 - y0 + REGPAD * 2 });
+          var y0 = REGTOP + (inner - g.h) / 2 + b.top + HALF;
+          Object.keys(b.cols).forEach(function (c7) { stacks.push({ col: +c7, keys: b.cols[c7], max: 2 * (b.rows - 1), y0: y0 }); });
         });
       });
-      // 仮ノードは場所を取らない。予備の経路のために、両端を結ぶ直線上に置く。
-      edges.forEach(function (e) {
-        var a = xy[e.a], b = xy[e.b], last = e.chain.length - 1;
-        for (var i = 1; i < last; i++) xy[e.chain[i]] = { x: PADX + items[e.chain[i]].col * COLW, y: a.y + (b.y - a.y) * i / last };
-      });
     }
-    // 仮ノードは並べ替えにのみ使う。線は箱との衝突を調べて最短の形にする。
-    function segment(p, q) {
-      if (Math.abs(p.y - q.y) < 0.01) return {p:p, q:q, straight:true};
-      var dx=q.x-p.x;
-      return {p:p, q:q, c1:{x:p.x+dx*PULL,y:p.y}, c2:{x:p.x+dx*(1-PULL),y:q.y}};
+    stacks.sort(function (a, b) { return a.col - b.col; });
+
+    // ---- 高さをそろえる: 並び順は変えずに、線でつながる相手と同じ高さへ寄せる ----
+    var upOf = {}, downOf = {};
+    ids.forEach(function (k) { upOf[k] = []; downOf[k] = []; });
+    edges.forEach(function (e) { downOf[e.a].push(e.b); upOf[e.b].push(e.a); });
+    var both = {};
+    ids.forEach(function (k) { both[k] = upOf[k].concat(downOf[k]); });
+    function spread(st) { return (st.max - 2 * (st.keys.length - 1)) / 2; }
+    stacks.forEach(function (st) {
+      st.keys.forEach(function (k, i) { xy[k] = { x: PADX + st.col * COLW, y: st.y0 + (spread(st) + 2 * i) * HALF }; });
+    });
+    function wanted(k, first, second) {
+      var ys = [];
+      first[k].forEach(function (n) { ys.push(xy[n].y); });
+      if (!ys.length && second) second[k].forEach(function (n) { ys.push(xy[n].y); });
+      if (!ys.length) return null;
+      ys.sort(function (a, b) { return a - b; });
+      var m = ys.length >> 1;
+      return ys.length % 2 ? ys[m] : (ys[m - 1] + ys[m]) / 2;
     }
-    function point(seg, t) {
-      if (seg.straight) return {x:seg.p.x+(seg.q.x-seg.p.x)*t,y:seg.p.y};
-      var u=1-t;
-      return {x:u*u*u*seg.p.x+3*u*u*t*seg.c1.x+3*u*t*t*seg.c2.x+t*t*t*seg.q.x,
-        y:u*u*u*seg.p.y+3*u*u*t*seg.c1.y+3*u*t*t*seg.c2.y+t*t*t*seg.q.y};
-    }
-    function clear(route, edge) {
-      var obstacles=ids.filter(function(k){return k!==edge.a && k!==edge.b;});
-      return route.every(function(seg){
-        // 約2pxごとに検査し、太い線と枠の間に余白を残す。
-        var samples=Math.max(16,Math.ceil((seg.q.x-seg.p.x+Math.abs(seg.q.y-seg.p.y))/2));
-        for(var i=0;i<=samples;i++) {
-          var v=point(seg,i/samples);
-          for(var j=0;j<obstacles.length;j++) {
-            var box=xy[obstacles[j]];
-            if(v.x>box.x-6 && v.x<box.x+BW+6 && v.y>box.y-BH/2-6 && v.y<box.y+BH/2+6) return false;
+    function settle(st, first, second) {
+      var m = st.keys.length, n = st.max + 1, best = [], from = [], off = spread(st);
+      for (var i = 0; i < m; i++) {
+        var want = wanted(st.keys[i], first, second), row = [], back = [];
+        var lo = 2 * i, hi = st.max - 2 * (m - 1 - i), run = Infinity, runAt = -1;
+        for (var s = 0; s < n; s++) {
+          if (i > 0 && s >= 2 && best[i - 1][s - 2] < run) { run = best[i - 1][s - 2]; runAt = s - 2; }
+          var cost = Infinity;
+          if (s >= lo && s <= hi && (i === 0 || run < Infinity)) {
+            cost = (want === null ? 0 : Math.abs(st.y0 + s * HALF - want)) + 0.01 * Math.abs(s - off - 2 * i) + (i ? run : 0);
           }
+          row.push(cost); back.push(runAt);
         }
-        return true;
-      });
-    }
-    var usedBottom=0;
-    function routePath(route) {
-      route.forEach(function(seg){usedBottom=Math.max(usedBottom,seg.p.y,seg.q.y);});
-      var d='M'+route[0].p.x+' '+route[0].p.y;
-      route.forEach(function(seg){
-        if(seg.straight) d+=' L'+seg.q.x+' '+seg.q.y;
-        else d+=' C'+seg.c1.x+' '+seg.c1.y+' '+seg.c2.x+' '+seg.c2.y+' '+seg.q.x+' '+seg.q.y;
-      });
-      return d;
-    }
-    edges.forEach(function(e){
-      var a=xy[e.a], b=xy[e.b], start={x:a.x+BW,y:a.y}, end={x:b.x,y:b.y};
-      var direct=[segment(start,end)];
-      if(clear(direct,e)) { e.d=routePath(direct); return; }
-      // 途中の列は一本の水平な通路で抜ける。列ごとの蛇行を作らない。
-      var firstX=PADX+(col[e.a]+1)*COLW;
-      var lastX=PADX+(col[e.b]-1)*COLW+BW;
-      var lanes=[a.y,b.y,(a.y+b.y)/2,8,height-8];
-      ids.forEach(function(k){
-        if(col[k]>col[e.a] && col[k]<col[e.b]) {
-          lanes.push(xy[k].y-BH/2-8,xy[k].y+BH/2+8);
-        }
-      });
-      var candidates=lanes.filter(function(y,i){return y>=8 && y<=height-8 && lanes.indexOf(y)===i;}).map(function(y){
-        var route=[segment(start,{x:firstX,y:y}),segment({x:firstX,y:y},{x:lastX,y:y}),segment({x:lastX,y:y},end)];
-        return {route:route, score:Math.abs(y-a.y)+Math.abs(b.y-y), curves:route.filter(function(s){return !s.straight;}).length};
-      }).sort(function(x,y){return x.score-y.score || x.curves-y.curves;});
-      var chosen=candidates.filter(function(c){return clear(c.route,e);})[0];
-      if(chosen) {e.d=routePath(chosen.route); return;}
-      // 通路が塞がる特殊な配置だけ、箱を避ける従来の通過位置を使う。
-      var fallback=[];
-      for(var i=0;i<e.chain.length-1;i++) {
-        var p=xy[e.chain[i]], q=xy[e.chain[i+1]];
-        fallback.push(segment({x:p.x+BW,y:p.y},{x:q.x,y:q.y}));
-        if(i<e.chain.length-2) fallback.push(segment({x:q.x,y:q.y},{x:q.x+BW,y:q.y}));
+        best.push(row); from.push(back);
       }
-      e.d=routePath(fallback);
+      var at = 0;
+      for (var q = 1; q < n; q++) if (best[m - 1][q] < best[m - 1][at]) at = q;
+      for (var j = m - 1; j >= 0; j--) { xy[st.keys[j]].y = st.y0 + at * HALF; at = from[j][at]; }
+    }
+    for (var round = 0; round < ROUNDS; round++) {
+      stacks.forEach(function (st) { if (st.col > 0) settle(st, upOf, downOf); });
+      stacks.slice().reverse().forEach(function (st) { if (st.col < maxCol) settle(st, downOf, upOf); });
+    }
+    stacks.forEach(function (st) { if (FINISH === 'both') settle(st, both, null); else if (st.col > 0) settle(st, upOf, downOf); });
+    bands.forEach(function (b) {
+      if (b.tag < 0) return;
+      var x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+      Object.keys(b.cols).forEach(function (c8) {
+        b.cols[c8].forEach(function (k) {
+          var p = xy[k];
+          x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x + BW);
+          y0 = Math.min(y0, p.y - BH / 2); y1 = Math.max(y1, p.y + BH / 2);
+        });
+      });
+      regions.push({ name: sys.tags[b.tag].name, x: x0 - REGPAD, y: y0 - REGPAD, w: x1 - x0 + REGPAD * 2, h: y1 - y0 + REGPAD * 2 });
+    });
+
+    // ---- 線の経路 ----
+    // 線は箱の右中央から出て左中央に入る。高さを変えるのは列と列のすき間だけで、
+    // 途中の列は一本の水平な通路で抜ける。無関係な線が同じ通路や同じ縦位置に重ならないように割り振る。
+    var usedBottom = 0;
+    function span(e) { return col[e.b] - col[e.a]; }
+    // 1) 列をまたぐ線の通路(水平に進む高さ)を決める。短い線から先に、近い通路を取る。
+    var lanes = [];
+    edges.filter(function (e) { return span(e) > 1; }).sort(function (e, f) {
+      return span(e) - span(f) || Math.abs(xy[e.a].y - xy[e.b].y) - Math.abs(xy[f.a].y - xy[f.b].y);
+    }).forEach(function (e) {
+      var a = xy[e.a], b = xy[e.b], cand = [a.y, b.y];
+      ids.forEach(function (k) {
+        if (col[k] > col[e.a] && col[k] < col[e.b]) cand.push(xy[k].y - HALF, xy[k].y + HALF);
+      });
+      cand.push(8, height + 2, height + 14, height + 26);
+      var options = cand.filter(function (y, i) { return y >= 8 && cand.indexOf(y) === i; }).map(function (y) {
+        var blocked = ids.some(function (k) { return col[k] > col[e.a] && col[k] < col[e.b] && Math.abs(xy[k].y - y) < BH / 2 + 9; });
+        // 出発も到着も違う線が、同じ列の範囲で同じ高さを使っていたら避ける
+        var clash = lanes.some(function (u) {
+          return u.a !== e.a && u.b !== e.b && Math.abs(u.y - y) < 9 && col[u.a] < col[e.b] - 1 && col[e.a] < col[u.b] - 1;
+        });
+        // 並べ替えで決めた上下の順(仮ノードの位置)と食い違う単元の数。食い違うと交差が増える。
+        var wrong = 0;
+        e.chain.slice(1, -1).forEach(function (dummy) {
+          real[items[dummy].col].forEach(function (k) { if ((pos[dummy] < pos[k]) !== (y < xy[k].y)) wrong++; });
+        });
+        return { y: y, blocked: blocked, clash: clash, cost: Math.abs(y - a.y) + Math.abs(b.y - y) + WRONG * wrong, turns: (y !== a.y) + (y !== b.y) };
+      }).sort(function (p, q) { return p.blocked - q.blocked || p.clash - q.clash || p.cost - q.cost || p.turns - q.turns; });
+      e.lane = options[0].y;
+      lanes.push({ a: e.a, b: e.b, y: e.lane });
+    });
+    // 2) 高さを変える場所(乗り換え)を、すき間ごとに集める
+    var hops = {};
+    function hop(e, gap, y1, y2, role) {
+      if (Math.abs(y1 - y2) < 0.01) return null;
+      var h = { e: e, y1: y1, y2: y2, role: role };
+      (hops[gap] = hops[gap] || []).push(h);
+      return h;
+    }
+    edges.forEach(function (e) {
+      var a = xy[e.a], b = xy[e.b];
+      usedBottom = Math.max(usedBottom, a.y, b.y);
+      if (span(e) === 1) { e.hops = [hop(e, col[e.a], a.y, b.y, 'one')]; return; }
+      usedBottom = Math.max(usedBottom, e.lane);
+      e.hops = [hop(e, col[e.a], a.y, e.lane, 'out'), hop(e, col[e.b] - 1, e.lane, b.y, 'in')];
+    });
+    // 3) すき間ごとに、乗り換えの縦位置を割り振る。同じ箱から出る線、同じ箱に入る線は束ねて同じ位置にする。
+    function inside(y, p, q) { return y > Math.min(p, q) + 0.5 && y < Math.max(p, q) - 0.5; }
+    Object.keys(hops).forEach(function (gap) {
+      var H = hops[gap], outs = {}, ins = {};
+      H.forEach(function (h) {
+        if (h.role !== 'in') outs[h.e.a] = (outs[h.e.a] || 0) + 1;
+        if (h.role !== 'out') ins[h.e.b] = (ins[h.e.b] || 0) + 1;
+      });
+      H.forEach(function (h) {
+        h.key = h.role === 'out' ? 'S' + h.e.a : h.role === 'in' ? 'T' + h.e.b : (ins[h.e.b] > outs[h.e.a] ? 'T' + h.e.b : 'S' + h.e.a);
+      });
+      var keys = [];
+      H.forEach(function (h) { if (keys.indexOf(h.key) < 0) keys.push(h.key); });
+      // 左から右への並びを、交差がいちばん少なくなるように選ぶ
+      function tangle(order) {
+        var rank = {}, n = 0;
+        order.forEach(function (k, i) { rank[k] = i; });
+        for (var i = 0; i < H.length; i++) for (var j = i + 1; j < H.length; j++) {
+          if (H[i].key === H[j].key) continue;
+          var L = rank[H[i].key] < rank[H[j].key] ? H[i] : H[j], R = L === H[i] ? H[j] : H[i];
+          if (inside(R.y1, L.y1, L.y2)) n++;                // 左の縦線が、右の線の出だしを横切る
+          if (inside(L.y2, R.y1, R.y2)) n++;                // 右の縦線が、左の線の入りを横切る
+          if (Math.abs(L.y2 - R.y1) < 0.5) n += 3;          // 入りと出だしが同じ高さで重なる
+        }
+        return n;
+      }
+      var mid = {};
+      keys.forEach(function (k) {
+        var ys = [];
+        H.forEach(function (h) { if (h.key === k) ys.push((h.y1 + h.y2) / 2); });
+        mid[k] = ys.reduce(function (s, y) { return s + y; }, 0) / ys.length;
+      });
+      var order = keys.slice().sort(function (p, q) { return mid[p] - mid[q]; }), score = tangle(order);
+      for (var improved = true, guard = 0; improved && score > 0 && guard < 20; guard++) {
+        improved = false;
+        for (var i = 0; i < order.length; i++) for (var j = 0; j < order.length; j++) {
+          if (i === j) continue;
+          var trial = order.slice(), moved = trial.splice(i, 1)[0];
+          trial.splice(j, 0, moved);
+          var s2 = tangle(trial);
+          if (s2 < score) { order = trial; score = s2; improved = true; }
+        }
+      }
+      var step = order.length > 1 ? Math.min(STEP, (GAPW - 40) / (order.length - 1)) : 0;
+      var width = GAPW - (order.length - 1) * step, left = PADX + gap * COLW + BW;
+      H.forEach(function (h) { h.x = left + order.indexOf(h.key) * step; h.w = width; });
+    });
+    // 4) 線を描く
+    edges.forEach(function (e) {
+      var a = xy[e.a], b = xy[e.b], d = 'M' + (a.x + BW) + ' ' + a.y;
+      e.hops.forEach(function (h) {
+        if (!h) return;
+        d += ' L' + h.x + ' ' + h.y1 + ' C' + (h.x + h.w * PULL) + ' ' + h.y1 + ' ' + (h.x + h.w * (1 - PULL)) + ' ' + h.y2 + ' ' + (h.x + h.w) + ' ' + h.y2;
+      });
+      e.d = d + ' L' + b.x + ' ' + b.y;
     });
     return {
       width: PADX * 2 + maxCol * COLW + BW,
@@ -886,6 +975,12 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","systems":[{"i
     if (hit) { location.hash = '#/g/' + hit; }
     else { topMessage = '「' + q + '」の木は、まだない。'; render(); }
   });
+
+  // 配置の機械検査(tests/layout.cjs)から呼ぶ入口
+  window.HOWTREE_LAYOUT = function (goal, systemId) {
+    return layout(goal, SYSTEMS.filter(function (s) { return s.id === systemId; })[0] || null);
+  };
+  window.HOWTREE_LAYOUT.box = { w: BW, h: BH };
 
   render();
 })();
