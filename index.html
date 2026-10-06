@@ -163,12 +163,21 @@ h2 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 0.06em; }
   .card .q { font-size: 22px; }
 }
 
+.review-row{display:block;padding:14px 0;border-bottom:1px solid var(--line)}
+.review-row span{display:block;color:var(--gray);font-size:13px;margin-left:24px}
+.review-row input{width:18px;height:18px;accent-color:var(--red)}
+summary{cursor:pointer;min-height:44px;padding-top:10px}
+button:focus-visible,a:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+
+.mobile-hint{display:none}
+@media(max-width:640px){.treebox{max-height:360px;overflow:auto}.mobile-hint{display:block}}
+
 </style>
 </head>
 <body>
 <div id="app"></div>
 <script>
-window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"math-school":"中学までの数学","spi":"SPI対策","hs-math":"高校1年の数学"}},"nodes":{"hs-data":{"id":"hs-data","name":"データの分析","type":"learn","goal":"四分位数、分散、相関を求めて、データの傾向を説明できる。","part_of":"hs-math","status":"draft","cost":{"hours":12,"yen":0},"requires":[{"id":"math-average","level":"must"}]},"hs-expressions":{"id":"hs-expressions","name":"数と式","type":"learn","goal":"式の展開と因数分解、一次不等式ができる。","part_of":"hs-math","status":"draft","cost":{"hours":20,"yen":0},"requires":[{"id":"math-sqrt","level":"must"},{"id":"math-linear-eq","level":"must"}]},"hs-quadratic":{"id":"hs-quadratic","name":"二次関数の応用","type":"learn","goal":"二次関数の最大と最小を求め、二次不等式を解ける。","part_of":"hs-math","status":"draft","cost":{"hours":25,"yen":0},"requires":[{"id":"math-quadratic-fn","level":"must"},{"id":"hs-expressions","level":"must"}]},"hs-trig":{"id":"hs-trig","name":"三角比","type":"learn","goal":"正弦、余弦、正接を使って、辺の長さや面積を求められる。","part_of":"hs-math","status":"draft","cost":{"hours":20,"yen":0},"requires":[{"id":"math-similarity","level":"must"},{"id":"math-pythagoras","level":"must"}]},"kounin-math":{"id":"kounin-math","name":"高卒認定の数学","type":"learn","goal":"高卒認定試験の数学で、合格点を取れる。","part_of":"hs-math","status":"draft","featured":true,"cost":{"hours":20,"yen":0},"requires":[{"id":"hs-expressions","level":"must"},{"id":"hs-quadratic","level":"must"},{"id":"hs-trig","level":"must"},{"id":"hs-data","level":"must"}]},"math-addsub":{"id":"math-addsub","name":"たし算ひき算","type":"learn","goal":"2けたのたし算とひき算を、暗算か筆算でできる。","part_of":"math-school","status":"draft","trunk":1,"check":"48 + 37 を計算する","cost":{"hours":10,"yen":0}},"math-angle":{"id":"math-angle","name":"角度と三角形","type":"learn","goal":"分度器で角度を測り、三角形の角の和を使える。","part_of":"math-school","status":"draft","cost":{"hours":10,"yen":0},"requires":[{"id":"math-shapes","level":"must"}]},"math-area":{"id":"math-area","name":"面積と体積","type":"learn","goal":"基本の図形の面積と、直方体の体積を求められる。","part_of":"math-school","status":"draft","cost":{"hours":15,"yen":0},"requires":[{"id":"math-muldiv","level":"must"},{"id":"math-shapes","level":"must"}]},"math-average":{"id":"math-average","name":"平均とデータ","type":"learn","goal":"平均値と中央値を求め、散らばりを説明できる。","part_of":"math-school","status":"draft","cost":{"hours":10,"yen":0},"requires":[{"id":"math-fraction","level":"must"},{"id":"math-table","level":"helps"}]},"math-circle":{"id":"math-circle","name":"円と円周率","type":"learn","goal":"円周の長さと円の面積を求められる。","part_of":"math-school","status":"draft","cost":{"hours":8,"yen":0},"requires":[{"id":"math-area","level":"must"}]},"math-congruence":{"id":"math-congruence","name":"合同と証明","type":"learn","goal":"三角形の合同条件を使って、証明を書ける。","part_of":"math-school","status":"draft","cost":{"hours":20,"yen":0},"requires":[{"id":"math-angle","level":"must"}]},"math-fraction":{"id":"math-fraction","name":"小数と分数","type":"learn","goal":"小数と分数の四則計算ができ、互いに変換できる。","part_of":"math-school","status":"draft","trunk":3,"check":"2/3 ÷ 4/5 を計算する","cost":{"hours":40,"yen":0},"requires":[{"id":"math-muldiv","level":"must"}]},"math-linear-eq":{"id":"math-linear-eq","name":"方程式","type":"learn","goal":"一次方程式を解き、文章題に使える。","part_of":"math-school","status":"draft","featured":true,"trunk":5,"check":"3x + 5 = 20 のとき、x を求める","cost":{"hours":20,"yen":0},"requires":[{"id":"math-negative","level":"must"}]},"math-linear-fn":{"id":"math-linear-fn","name":"一次関数","type":"learn","goal":"傾きと切片から式を作り、グラフを書ける。","part_of":"math-school","status":"draft","trunk":6,"check":"2点 (0, 1) と (2, 5) を通る直線の式を求める","cost":{"hours":25,"yen":0},"requires":[{"id":"math-linear-eq","level":"must"},{"id":"math-proportion","level":"helps"}]},"math-muldiv":{"id":"math-muldiv","name":"かけ算わり算","type":"learn","goal":"九九を使って、筆算のかけ算とわり算ができる。","part_of":"math-school","status":"draft","trunk":2,"check":"36 × 24 を計算する","cost":{"hours":20,"yen":0},"requires":[{"id":"math-addsub","level":"must"}]},"math-negative":{"id":"math-negative","name":"正負の数","type":"learn","goal":"負の数を含む四則計算ができる。","part_of":"math-school","status":"draft","trunk":4,"check":"(−3) × 4 − (−6) を計算する","cost":{"hours":8,"yen":0},"requires":[{"id":"math-fraction","level":"must"}]},"math-probability":{"id":"math-probability","name":"確率","type":"learn","goal":"樹形図を書いて、場合の数と確率を求められる。","part_of":"math-school","status":"draft","cost":{"hours":15,"yen":0},"requires":[{"id":"math-ratio","level":"must"},{"id":"math-average","level":"helps"}]},"math-proportion":{"id":"math-proportion","name":"比例と反比例","type":"learn","goal":"比例と反比例を、式とグラフで表せる。","part_of":"math-school","status":"draft","cost":{"hours":12,"yen":0},"requires":[{"id":"math-ratio","level":"must"}]},"math-pythagoras":{"id":"math-pythagoras","name":"三平方の定理","type":"learn","goal":"直角三角形の辺の長さを求められる。","part_of":"math-school","status":"draft","cost":{"hours":12,"yen":0},"requires":[{"id":"math-sqrt","level":"must"},{"id":"math-congruence","level":"helps"}]},"math-quadratic-eq":{"id":"math-quadratic-eq","name":"二次方程式","type":"learn","goal":"因数分解と解の公式で、二次方程式を解ける。","part_of":"math-school","status":"draft","cost":{"hours":20,"yen":0},"requires":[{"id":"math-linear-eq","level":"must"},{"id":"math-sqrt","level":"must"}]},"math-quadratic-fn":{"id":"math-quadratic-fn","name":"二次関数","type":"learn","goal":"放物線のグラフを書き、変化の割合を求められる。","part_of":"math-school","status":"draft","featured":true,"trunk":7,"check":"y = 2x² で、x が 1 から 3 まで増えるときの変化の割合を求める","cost":{"hours":25,"yen":0},"requires":[{"id":"math-linear-fn","level":"must"},{"id":"math-quadratic-eq","level":"helps"}]},"math-ratio":{"id":"math-ratio","name":"割合と比","type":"learn","goal":"百分率と比を使って、もとの量や比べる量を求められる。","part_of":"math-school","status":"draft","featured":true,"cost":{"hours":15,"yen":0},"requires":[{"id":"math-fraction","level":"must"}]},"math-shapes":{"id":"math-shapes","name":"形と長さ","type":"learn","goal":"基本の図形を見分け、ものさしで長さを測れる。","part_of":"math-school","status":"draft","cost":{"hours":8,"yen":0}},"math-similarity":{"id":"math-similarity","name":"相似","type":"learn","goal":"相似条件を使って、辺の長さの比を求められる。","part_of":"math-school","status":"draft","cost":{"hours":15,"yen":0},"requires":[{"id":"math-congruence","level":"must"}]},"math-simultaneous":{"id":"math-simultaneous","name":"連立方程式","type":"learn","goal":"加減法と代入法で、連立方程式を解ける。","part_of":"math-school","status":"draft","cost":{"hours":15,"yen":0},"requires":[{"id":"math-linear-eq","level":"must"}]},"math-sqrt":{"id":"math-sqrt","name":"平方根","type":"learn","goal":"根号を含む式の計算ができる。","part_of":"math-school","status":"draft","cost":{"hours":12,"yen":0},"requires":[{"id":"math-negative","level":"must"}]},"math-table":{"id":"math-table","name":"表とグラフ","type":"learn","goal":"表にまとめ、棒グラフと折れ線グラフを読める。","part_of":"math-school","status":"draft","cost":{"hours":8,"yen":0},"requires":[{"id":"math-muldiv","level":"helps"}]},"spi-counting":{"id":"spi-counting","name":"順列と組合せ","type":"learn","goal":"並べ方と選び方の数を、式で求められる。","part_of":"spi","status":"draft","cost":{"hours":10,"yen":0},"requires":[{"id":"math-muldiv","level":"must"}]},"spi-discount":{"id":"spi-discount","name":"料金の割引","type":"learn","goal":"団体割引など、条件つきの料金の合計を求められる。","part_of":"spi","status":"draft","cost":{"hours":4,"yen":0},"requires":[{"id":"math-ratio","level":"must"}]},"spi-inference":{"id":"spi-inference","name":"推論","type":"learn","goal":"与えられた条件から、順位や内訳について必ず言えることを判断できる。","part_of":"spi","status":"draft","cost":{"hours":12,"yen":0}},"spi-nonverbal":{"id":"spi-nonverbal","name":"SPI非言語","type":"learn","goal":"SPIの非言語分野の問題を、制限時間内に解ける。","part_of":"spi","status":"draft","featured":true,"cost":{"hours":15,"yen":0},"requires":[{"id":"spi-profit","level":"must"},{"id":"spi-discount","level":"must"},{"id":"spi-speed","level":"must"},{"id":"spi-work","level":"must"},{"id":"spi-sets","level":"must"},{"id":"spi-counting","level":"must"},{"id":"math-probability","level":"must"},{"id":"spi-tables","level":"must"},{"id":"spi-inference","level":"must"}]},"spi-profit":{"id":"spi-profit","name":"損益算","type":"learn","goal":"原価、定価、利益の関係から、売値や利益率を求められる。","part_of":"spi","status":"draft","cost":{"hours":6,"yen":0},"requires":[{"id":"math-ratio","level":"must"}]},"spi-sets":{"id":"spi-sets","name":"集合","type":"learn","goal":"ベン図を書いて、重なりのある人数を求められる。","part_of":"spi","status":"draft","cost":{"hours":5,"yen":0},"requires":[{"id":"math-addsub","level":"must"}]},"spi-speed":{"id":"spi-speed","name":"速さと時間","type":"learn","goal":"速さ、時間、距離の関係を使って、出会いや追いつきの問題を解ける。","part_of":"spi","status":"draft","cost":{"hours":8,"yen":0},"requires":[{"id":"math-fraction","level":"must"},{"id":"math-linear-eq","level":"helps"}]},"spi-tables":{"id":"spi-tables","name":"表の読み取り","type":"learn","goal":"複数の表から必要な数値を拾い、割合や増減を計算できる。","part_of":"spi","status":"draft","cost":{"hours":6,"yen":0},"requires":[{"id":"math-table","level":"must"},{"id":"math-ratio","level":"must"}]},"spi-work":{"id":"spi-work","name":"仕事算","type":"learn","goal":"全体を1として、複数人での仕事にかかる日数を求められる。","part_of":"spi","status":"draft","cost":{"hours":6,"yen":0},"requires":[{"id":"math-fraction","level":"must"}]}}};
+window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"math-school":"中学までの数学","spi":"SPI対策","hs-math":"高校1年の数学"}},"nodes":{"hs-data":{"id":"hs-data","name":"データの分析","type":"learn","goal":"四分位数、分散、相関を求めて、データの傾向を説明できる。","part_of":"hs-math","status":"draft","cost":{"hours":12,"yen":0},"requires":[{"id":"math-average","level":"must"}]},"hs-expressions":{"id":"hs-expressions","name":"数と式","type":"learn","goal":"式の展開と因数分解、一次不等式ができる。","part_of":"hs-math","status":"draft","cost":{"hours":20,"yen":0},"requires":[{"id":"math-sqrt","level":"must"},{"id":"math-linear-eq","level":"must"}]},"hs-quadratic":{"id":"hs-quadratic","name":"二次関数の応用","type":"learn","goal":"二次関数の最大と最小を求め、二次不等式を解ける。","part_of":"hs-math","status":"draft","cost":{"hours":25,"yen":0},"requires":[{"id":"math-quadratic-fn","level":"must"},{"id":"hs-expressions","level":"must"}]},"hs-trig":{"id":"hs-trig","name":"三角比","type":"learn","goal":"正弦、余弦、正接を使って、辺の長さや面積を求められる。","part_of":"hs-math","status":"draft","cost":{"hours":20,"yen":0},"requires":[{"id":"math-similarity","level":"must"},{"id":"math-pythagoras","level":"must"}]},"kounin-math":{"id":"kounin-math","name":"高卒認定の数学","type":"learn","goal":"高卒認定試験の数学で、合格点を取れる。","part_of":"hs-math","status":"draft","featured":true,"cost":{"hours":20,"yen":0},"requires":[{"id":"hs-expressions","level":"must"},{"id":"hs-quadratic","level":"must"},{"id":"hs-trig","level":"must"},{"id":"hs-data","level":"must"}]},"math-addsub":{"id":"math-addsub","name":"たし算ひき算","type":"learn","goal":"2けたのたし算とひき算を、暗算か筆算でできる。","part_of":"math-school","status":"draft","trunk":1,"check":"48 + 37 を計算する","cost":{"hours":10,"yen":0},"assessment":{"question":"46 + 27 は？","options":["63","73","83"],"answer":1,"explanation":"40 + 20 と 6 + 7 に分けると、60 + 13 = 73。"},"resources":[{"title":"Khan Academy：計算の解説と練習（英語）","url":"https://www.khanacademy.org/math/arithmetic","free":true,"assumes":"英語の教材です。英語が難しければ、上の確認問題の解説から始められます。","checked_at":"2026-10-06"}]},"math-angle":{"id":"math-angle","name":"角度と三角形","type":"learn","goal":"分度器で角度を測り、三角形の角の和を使える。","part_of":"math-school","status":"draft","cost":{"hours":10,"yen":0},"requires":[{"id":"math-shapes","level":"must"}]},"math-area":{"id":"math-area","name":"面積と体積","type":"learn","goal":"基本の図形の面積と、直方体の体積を求められる。","part_of":"math-school","status":"draft","cost":{"hours":15,"yen":0},"requires":[{"id":"math-muldiv","level":"must"},{"id":"math-shapes","level":"must"}]},"math-average":{"id":"math-average","name":"平均とデータ","type":"learn","goal":"平均値と中央値を求め、散らばりを説明できる。","part_of":"math-school","status":"draft","cost":{"hours":10,"yen":0},"requires":[{"id":"math-fraction","level":"must"},{"id":"math-table","level":"helps"}]},"math-circle":{"id":"math-circle","name":"円と円周率","type":"learn","goal":"円周の長さと円の面積を求められる。","part_of":"math-school","status":"draft","cost":{"hours":8,"yen":0},"requires":[{"id":"math-area","level":"must"}]},"math-congruence":{"id":"math-congruence","name":"合同と証明","type":"learn","goal":"三角形の合同条件を使って、証明を書ける。","part_of":"math-school","status":"draft","cost":{"hours":20,"yen":0},"requires":[{"id":"math-angle","level":"must"}]},"math-fraction":{"id":"math-fraction","name":"小数と分数","type":"learn","goal":"小数と分数の四則計算ができ、互いに変換できる。","part_of":"math-school","status":"draft","trunk":3,"check":"2/3 ÷ 4/5 を計算する","cost":{"hours":40,"yen":0},"requires":[{"id":"math-muldiv","level":"must"}],"assessment":{"question":"2/3 ÷ 4/5 は？","options":["8/15","6/5","5/6"],"answer":2,"explanation":"割る数の逆数を掛ける。2/3 × 5/4 = 10/12 = 5/6。"},"resources":[{"title":"Khan Academy：計算の解説と練習（英語）","url":"https://www.khanacademy.org/math/arithmetic","free":true,"assumes":"英語の教材です。英語が難しければ、上の確認問題の解説から始められます。","checked_at":"2026-10-06"}]},"math-linear-eq":{"id":"math-linear-eq","name":"方程式","type":"learn","goal":"一次方程式を解き、文章題に使える。","part_of":"math-school","status":"draft","featured":true,"trunk":5,"check":"3x + 5 = 20 のとき、x を求める","cost":{"hours":20,"yen":0},"requires":[{"id":"math-negative","level":"must"}]},"math-linear-fn":{"id":"math-linear-fn","name":"一次関数","type":"learn","goal":"傾きと切片から式を作り、グラフを書ける。","part_of":"math-school","status":"draft","trunk":6,"check":"2点 (0, 1) と (2, 5) を通る直線の式を求める","cost":{"hours":25,"yen":0},"requires":[{"id":"math-linear-eq","level":"must"},{"id":"math-proportion","level":"helps"}]},"math-muldiv":{"id":"math-muldiv","name":"かけ算わり算","type":"learn","goal":"九九を使って、筆算のかけ算とわり算ができる。","part_of":"math-school","status":"draft","trunk":2,"check":"36 × 24 を計算する","cost":{"hours":20,"yen":0},"requires":[{"id":"math-addsub","level":"must"}],"assessment":{"question":"72 ÷ 8 は？","options":["8","9","12"],"answer":1,"explanation":"8 × 9 = 72 なので、72 ÷ 8 = 9。"},"resources":[{"title":"Khan Academy：計算の解説と練習（英語）","url":"https://www.khanacademy.org/math/arithmetic","free":true,"assumes":"英語の教材です。英語が難しければ、上の確認問題の解説から始められます。","checked_at":"2026-10-06"}]},"math-negative":{"id":"math-negative","name":"正負の数","type":"learn","goal":"負の数を含む四則計算ができる。","part_of":"math-school","status":"draft","trunk":4,"check":"(−3) × 4 − (−6) を計算する","cost":{"hours":8,"yen":0},"requires":[{"id":"math-fraction","level":"must"}]},"math-probability":{"id":"math-probability","name":"確率","type":"learn","goal":"樹形図を書いて、場合の数と確率を求められる。","part_of":"math-school","status":"draft","cost":{"hours":15,"yen":0},"requires":[{"id":"math-ratio","level":"must"}],"assessment":{"question":"公平な6面サイコロで偶数が出る確率は？","options":["1/6","1/3","1/2"],"answer":2,"explanation":"同じ確からしさの6通りのうち、2・4・6の3通り。3/6 = 1/2。"}},"math-proportion":{"id":"math-proportion","name":"比例と反比例","type":"learn","goal":"比例と反比例を、式とグラフで表せる。","part_of":"math-school","status":"draft","cost":{"hours":12,"yen":0},"requires":[{"id":"math-ratio","level":"must"}]},"math-pythagoras":{"id":"math-pythagoras","name":"三平方の定理","type":"learn","goal":"直角三角形の辺の長さを求められる。","part_of":"math-school","status":"draft","cost":{"hours":12,"yen":0},"requires":[{"id":"math-sqrt","level":"must"},{"id":"math-congruence","level":"helps"}]},"math-quadratic-eq":{"id":"math-quadratic-eq","name":"二次方程式","type":"learn","goal":"因数分解と解の公式で、二次方程式を解ける。","part_of":"math-school","status":"draft","cost":{"hours":20,"yen":0},"requires":[{"id":"math-linear-eq","level":"must"},{"id":"math-sqrt","level":"must"}]},"math-quadratic-fn":{"id":"math-quadratic-fn","name":"二次関数","type":"learn","goal":"放物線のグラフを書き、変化の割合を求められる。","part_of":"math-school","status":"draft","featured":true,"trunk":7,"check":"y = 2x² で、x が 1 から 3 まで増えるときの変化の割合を求める","cost":{"hours":25,"yen":0},"requires":[{"id":"math-linear-fn","level":"must"},{"id":"math-quadratic-eq","level":"helps"}]},"math-ratio":{"id":"math-ratio","name":"割合と比","type":"learn","goal":"百分率と比を使って、もとの量や比べる量を求められる。","part_of":"math-school","status":"draft","featured":true,"cost":{"hours":15,"yen":0},"requires":[{"id":"math-fraction","level":"must"}],"assessment":{"question":"800円の15%はいくら？","options":["120円","150円","680円"],"answer":0,"explanation":"15% = 0.15。800 × 0.15 = 120円。"},"resources":[{"title":"Khan Academy：計算の解説と練習（英語）","url":"https://www.khanacademy.org/math/cc-seventh-grade-math/cc-7th-fractions-decimals","free":true,"assumes":"英語の教材です。英語が難しければ、上の確認問題の解説から始められます。","checked_at":"2026-10-06"}]},"math-shapes":{"id":"math-shapes","name":"形と長さ","type":"learn","goal":"基本の図形を見分け、ものさしで長さを測れる。","part_of":"math-school","status":"draft","cost":{"hours":8,"yen":0}},"math-similarity":{"id":"math-similarity","name":"相似","type":"learn","goal":"相似条件を使って、辺の長さの比を求められる。","part_of":"math-school","status":"draft","cost":{"hours":15,"yen":0},"requires":[{"id":"math-congruence","level":"must"}]},"math-simultaneous":{"id":"math-simultaneous","name":"連立方程式","type":"learn","goal":"加減法と代入法で、連立方程式を解ける。","part_of":"math-school","status":"draft","cost":{"hours":15,"yen":0},"requires":[{"id":"math-linear-eq","level":"must"}]},"math-sqrt":{"id":"math-sqrt","name":"平方根","type":"learn","goal":"根号を含む式の計算ができる。","part_of":"math-school","status":"draft","cost":{"hours":12,"yen":0},"requires":[{"id":"math-negative","level":"must"}]},"math-table":{"id":"math-table","name":"表とグラフ","type":"learn","goal":"表にまとめ、棒グラフと折れ線グラフを読める。","part_of":"math-school","status":"draft","cost":{"hours":8,"yen":0},"requires":[{"id":"math-muldiv","level":"helps"}],"assessment":{"question":"販売数は月曜12個、火曜18個、水曜15個。最も多い曜日は？","options":["月曜","火曜","水曜"],"answer":1,"explanation":"同じ単位の値を比較する。18個の火曜が最大。"}},"spi-counting":{"id":"spi-counting","name":"順列と組合せ","type":"learn","goal":"並べ方と選び方の数を、式で求められる。","part_of":"spi","status":"draft","cost":{"hours":10,"yen":0},"requires":[{"id":"math-muldiv","level":"must"}],"assessment":{"question":"異なる4人から2人を選ぶ組合せは何通り？","options":["6通り","8通り","12通り"],"answer":0,"explanation":"順番付きなら4 × 3 = 12通り。同じ2人の逆順を除き12 ÷ 2 = 6通り。"},"resources":[{"title":"SPI3をひとつひとつわかりやすく。2028年度版：試し読み","url":"https://gakken.tameshiyo.me/9784058026168?logging=no","free":true,"assumes":"四則計算・分数・割合。まず試し読みで説明が読めるか確認。無料なのは公開された範囲のみ。","checked_at":"2026-10-06"},{"title":"SPI3をひとつひとつわかりやすく。2028年度版（出版社）","url":"https://hon.gakken.jp/book/2380261600","free":false,"assumes":"同じ本を複数単元で使います。単元ごとに買い直す必要はありません。紹介候補であり本文全体の精査は未完了。","checked_at":"2026-10-06"},{"title":"出版社の正誤表","url":"https://hon.gakken.jp/info/n20260521EPR0000572","free":true,"assumes":"該当する刷の訂正を確認。","checked_at":"2026-10-06"}]},"spi-discount":{"id":"spi-discount","name":"料金の割引","type":"learn","goal":"団体割引など、条件つきの料金の合計を求められる。","part_of":"spi","status":"draft","cost":{"hours":4,"yen":0},"requires":[{"id":"math-ratio","level":"must"}],"assessment":{"question":"1,200円の商品を20%引きにした売値は？","options":["240円","960円","1,000円"],"answer":1,"explanation":"支払うのは元の80%。1,200 × 0.8 = 960円。"},"resources":[{"title":"SPI3をひとつひとつわかりやすく。2028年度版：試し読み","url":"https://gakken.tameshiyo.me/9784058026168?logging=no","free":true,"assumes":"四則計算・分数・割合。まず試し読みで説明が読めるか確認。無料なのは公開された範囲のみ。","checked_at":"2026-10-06"},{"title":"SPI3をひとつひとつわかりやすく。2028年度版（出版社）","url":"https://hon.gakken.jp/book/2380261600","free":false,"assumes":"同じ本を複数単元で使います。単元ごとに買い直す必要はありません。紹介候補であり本文全体の精査は未完了。","checked_at":"2026-10-06"},{"title":"出版社の正誤表","url":"https://hon.gakken.jp/info/n20260521EPR0000572","free":true,"assumes":"該当する刷の訂正を確認。","checked_at":"2026-10-06"}]},"spi-inference":{"id":"spi-inference","name":"推論","type":"learn","goal":"与えられた条件から、順位や内訳について必ず言えることを判断できる。","part_of":"spi","status":"draft","cost":{"hours":12,"yen":0},"assessment":{"question":"AはBより前、BはCより前に到着した。必ず正しいのは？","options":["CはAより前","AはCより前","Bは最後"],"answer":1,"explanation":"条件を A → B → C と並べる。AはCより前。"},"resources":[{"title":"SPI3をひとつひとつわかりやすく。2028年度版：試し読み","url":"https://gakken.tameshiyo.me/9784058026168?logging=no","free":true,"assumes":"四則計算・分数・割合。まず試し読みで説明が読めるか確認。無料なのは公開された範囲のみ。","checked_at":"2026-10-06"},{"title":"SPI3をひとつひとつわかりやすく。2028年度版（出版社）","url":"https://hon.gakken.jp/book/2380261600","free":false,"assumes":"同じ本を複数単元で使います。単元ごとに買い直す必要はありません。紹介候補であり本文全体の精査は未完了。","checked_at":"2026-10-06"},{"title":"出版社の正誤表","url":"https://hon.gakken.jp/info/n20260521EPR0000572","free":true,"assumes":"該当する刷の訂正を確認。","checked_at":"2026-10-06"}]},"spi-nonverbal":{"id":"spi-nonverbal","name":"SPI非言語","type":"learn","goal":"代表的な非言語問題を学び、受検方式に合う問題集で演習を始める。","part_of":"spi","status":"draft","featured":true,"scope_note":"代表分野への学習経路です。SPI全範囲や通過を保証するものではありません。分割払い・精算・領域など未収録の項目があります。企業の受検案内で方式を確認してください。線はこの経路での学習順序を表し、公式の必須条件ではありません。","cost":{"hours":15,"yen":0},"requires":[{"id":"spi-profit","level":"must"},{"id":"spi-discount","level":"must"},{"id":"spi-speed","level":"must"},{"id":"spi-work","level":"must"},{"id":"spi-sets","level":"must"},{"id":"spi-counting","level":"must"},{"id":"math-probability","level":"must"},{"id":"spi-tables","level":"must"},{"id":"spi-inference","level":"must"}],"sources":[{"title":"SPI公式サイト（検査の概要）","url":"https://www.spi.recruit.co.jp/"},{"title":"実務教育出版：SPIの基礎知識（方式別に出題が異なる）","url":"https://www.jitsumu.co.jp/assets/pdf/kyouzai/university/spi-knowledge.pdf"}],"resources":[{"title":"SPI3をひとつひとつわかりやすく。2028年度版：試し読み","url":"https://gakken.tameshiyo.me/9784058026168?logging=no","free":true,"assumes":"四則計算・分数・割合。まず試し読みで説明が読めるか確認。無料なのは公開された範囲のみ。","checked_at":"2026-10-06"},{"title":"SPI3をひとつひとつわかりやすく。2028年度版（出版社）","url":"https://hon.gakken.jp/book/2380261600","free":false,"assumes":"同じ本を複数単元で使います。単元ごとに買い直す必要はありません。紹介候補であり本文全体の精査は未完了。","checked_at":"2026-10-06"},{"title":"出版社の正誤表","url":"https://hon.gakken.jp/info/n20260521EPR0000572","free":true,"assumes":"該当する刷の訂正を確認。","checked_at":"2026-10-06"}]},"spi-profit":{"id":"spi-profit","name":"損益算","type":"learn","goal":"原価、定価、利益の関係から、売値や利益率を求められる。","part_of":"spi","status":"draft","cost":{"hours":6,"yen":0},"requires":[{"id":"math-ratio","level":"must"}],"assessment":{"question":"原価600円の商品を750円で売った。原価に対する利益率は？","options":["20%","25%","125%"],"answer":1,"explanation":"利益は150円。利益率は150 ÷ 600 = 0.25 = 25%。売値ではなく原価で割る。"},"resources":[{"title":"SPI3をひとつひとつわかりやすく。2028年度版：試し読み","url":"https://gakken.tameshiyo.me/9784058026168?logging=no","free":true,"assumes":"四則計算・分数・割合。まず試し読みで説明が読めるか確認。無料なのは公開された範囲のみ。","checked_at":"2026-10-06"},{"title":"SPI3をひとつひとつわかりやすく。2028年度版（出版社）","url":"https://hon.gakken.jp/book/2380261600","free":false,"assumes":"同じ本を複数単元で使います。単元ごとに買い直す必要はありません。紹介候補であり本文全体の精査は未完了。","checked_at":"2026-10-06"},{"title":"出版社の正誤表","url":"https://hon.gakken.jp/info/n20260521EPR0000572","free":true,"assumes":"該当する刷の訂正を確認。","checked_at":"2026-10-06"}]},"spi-sets":{"id":"spi-sets","name":"集合","type":"learn","goal":"ベン図を書いて、重なりのある人数を求められる。","part_of":"spi","status":"draft","cost":{"hours":5,"yen":0},"requires":[{"id":"math-addsub","level":"must"}],"assessment":{"question":"20人中、犬好き12人、猫好き9人、両方好き5人。少なくとも一方が好きな人数は？","options":["16人","20人","21人"],"answer":0,"explanation":"12 + 9 は両方の5人を二重に数えている。12 + 9 − 5 = 16人。"},"resources":[{"title":"SPI3をひとつひとつわかりやすく。2028年度版：試し読み","url":"https://gakken.tameshiyo.me/9784058026168?logging=no","free":true,"assumes":"四則計算・分数・割合。まず試し読みで説明が読めるか確認。無料なのは公開された範囲のみ。","checked_at":"2026-10-06"},{"title":"SPI3をひとつひとつわかりやすく。2028年度版（出版社）","url":"https://hon.gakken.jp/book/2380261600","free":false,"assumes":"同じ本を複数単元で使います。単元ごとに買い直す必要はありません。紹介候補であり本文全体の精査は未完了。","checked_at":"2026-10-06"},{"title":"出版社の正誤表","url":"https://hon.gakken.jp/info/n20260521EPR0000572","free":true,"assumes":"該当する刷の訂正を確認。","checked_at":"2026-10-06"}]},"spi-speed":{"id":"spi-speed","name":"速さと時間","type":"learn","goal":"速さ、時間、距離の関係を使って、出会いや追いつきの問題を解ける。","part_of":"spi","status":"draft","cost":{"hours":8,"yen":0},"requires":[{"id":"math-fraction","level":"must"},{"id":"math-linear-eq","level":"helps"}],"assessment":{"question":"時速60kmで30分進んだ距離は？","options":["2km","30km","120km"],"answer":1,"explanation":"時間の単位をそろえる。30分 = 0.5時間。60 × 0.5 = 30km。"},"resources":[{"title":"SPI3をひとつひとつわかりやすく。2028年度版：試し読み","url":"https://gakken.tameshiyo.me/9784058026168?logging=no","free":true,"assumes":"四則計算・分数・割合。まず試し読みで説明が読めるか確認。無料なのは公開された範囲のみ。","checked_at":"2026-10-06"},{"title":"SPI3をひとつひとつわかりやすく。2028年度版（出版社）","url":"https://hon.gakken.jp/book/2380261600","free":false,"assumes":"同じ本を複数単元で使います。単元ごとに買い直す必要はありません。紹介候補であり本文全体の精査は未完了。","checked_at":"2026-10-06"},{"title":"出版社の正誤表","url":"https://hon.gakken.jp/info/n20260521EPR0000572","free":true,"assumes":"該当する刷の訂正を確認。","checked_at":"2026-10-06"}]},"spi-tables":{"id":"spi-tables","name":"表の読み取り","type":"learn","goal":"複数の表から必要な数値を拾い、割合や増減を計算できる。","part_of":"spi","status":"draft","cost":{"hours":6,"yen":0},"requires":[{"id":"math-table","level":"must"},{"id":"math-ratio","level":"must"}],"assessment":{"question":"A店の売上は前年80万円、今年100万円。前年比の増加率は？","options":["20%","25%","125%"],"answer":1,"explanation":"増加は20万円。基準は前年なので20 ÷ 80 = 25%。"},"resources":[{"title":"SPI3をひとつひとつわかりやすく。2028年度版：試し読み","url":"https://gakken.tameshiyo.me/9784058026168?logging=no","free":true,"assumes":"四則計算・分数・割合。まず試し読みで説明が読めるか確認。無料なのは公開された範囲のみ。","checked_at":"2026-10-06"},{"title":"SPI3をひとつひとつわかりやすく。2028年度版（出版社）","url":"https://hon.gakken.jp/book/2380261600","free":false,"assumes":"同じ本を複数単元で使います。単元ごとに買い直す必要はありません。紹介候補であり本文全体の精査は未完了。","checked_at":"2026-10-06"},{"title":"出版社の正誤表","url":"https://hon.gakken.jp/info/n20260521EPR0000572","free":true,"assumes":"該当する刷の訂正を確認。","checked_at":"2026-10-06"}]},"spi-work":{"id":"spi-work","name":"仕事算","type":"learn","goal":"全体を1として、複数人での仕事にかかる日数を求められる。","part_of":"spi","status":"draft","cost":{"hours":6,"yen":0},"requires":[{"id":"math-fraction","level":"must"}],"assessment":{"question":"Aは6日、Bは3日で同じ仕事を終える。一定の速さで一緒に行うと何日？","options":["2日","3日","4.5日"],"answer":0,"explanation":"1日分は1/6 + 1/3 = 1/2。全体1を終えるには1 ÷ (1/2) = 2日。"},"resources":[{"title":"SPI3をひとつひとつわかりやすく。2028年度版：試し読み","url":"https://gakken.tameshiyo.me/9784058026168?logging=no","free":true,"assumes":"四則計算・分数・割合。まず試し読みで説明が読めるか確認。無料なのは公開された範囲のみ。","checked_at":"2026-10-06"},{"title":"SPI3をひとつひとつわかりやすく。2028年度版（出版社）","url":"https://hon.gakken.jp/book/2380261600","free":false,"assumes":"同じ本を複数単元で使います。単元ごとに買い直す必要はありません。紹介候補であり本文全体の精査は未完了。","checked_at":"2026-10-06"},{"title":"出版社の正誤表","url":"https://hon.gakken.jp/info/n20260521EPR0000572","free":true,"assumes":"該当する刷の訂正を確認。","checked_at":"2026-10-06"}]}}};
 </script>
 <script>
 (function () {
@@ -180,7 +189,7 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"mat
   var app = document.getElementById('app');
 
   // ---- 端末内の保存 ----
-  var KNOWN_KEY = 'howtree.known.v1';
+  var KNOWN_KEY = 'howtree.known.v2';
   var REPORT_KEY = 'howtree.reports.v1';
   function load(key) {
     try { return JSON.parse(localStorage.getItem(key)); } catch (e) { return null; }
@@ -189,8 +198,37 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"mat
     try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* 保存できなくても動かす */ }
   }
   var known = {};
-  (load(KNOWN_KEY) || []).forEach(function (id) { if (N[id]) known[id] = 1; });
+  list(KNOWN_KEY).forEach(function (id) { if (N[id]) known[id] = 1; });
   function persist() { save(KNOWN_KEY, Object.keys(known)); }
+
+
+  var EVENT_KEY = 'howtree.events.v1', CONSENT_KEY = 'howtree.measure.v1', START_KEY = 'howtree.started.v1';
+  function list(key) { var x = load(key); return Array.isArray(x) ? x : []; }
+  function track(kind, node, value) {
+    if (load(CONSENT_KEY) !== true) return;
+    var events = list(EVENT_KEY);
+    events.push({kind: kind, node: node || null, value: value || null, at: new Date().toISOString()});
+    save(EVENT_KEY, events.slice(-1000));
+  }
+  function exportRecords() {
+    var data = {version: 1, exported_at: new Date().toISOString(), known: Object.keys(known), events: list(EVENT_KEY), reports: list(REPORT_KEY)};
+    var url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {type:'application/json'}));
+    var a = document.createElement('a'); a.href=url; a.download='howtree-feedback.json'; a.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
+  function viewRecords() {
+    app.innerHTML='<div class="wrap narrow">'+header()+'<div class="card"><h1>学習の記録</h1>'+
+      '<p>習得済みと学習中の単元は、このブラウザに保存します。操作履歴は協力を選んだ場合だけ記録します。自動送信はしません。</p>'+
+      '<p>書き出すファイルには単元名に対応するID、操作日時、教材を開いた履歴、報告、習得済みが入ります。内容を確認してから、試用を依頼した人に任意で渡してください。</p>'+
+      '<p>操作履歴 '+list(EVENT_KEY).length+'件 / 報告 '+list(REPORT_KEY).length+'件。最大1,000件を端末に保存します。</p>'+
+      '<div class="btns"><button class="btn" data-act="measure">'+(load(CONSENT_KEY)===true?'操作履歴の記録を止める':'試用に協力：操作履歴を記録する')+'</button>'+
+      '<button class="btn" data-act="export">記録を書き出す</button><button class="btn" data-act="erase">操作履歴と報告を削除</button></div><p class="note">習得済みの記録は削除しません。書き出しは購入や広告への同意ではありません。</p></div>'+footer()+'</div>';
+  }
+  function miniLesson(n) {
+    if (!n.assessment) return '';
+    var a=n.assessment;
+    return '<div class="blk"><div class="sub">無料で一問試す（独自作成）</div><p>'+esc(a.question)+'</p><details><summary>答えと考え方</summary><p>'+esc(a.explanation)+'</p></details><p class="note">一問は理解の手がかりです。単元全体の習得は到達条件でも確認してください。</p></div>';
+  }
 
   // ---- グラフ ----
   var FLOW = ['must', 'helps'];
@@ -232,14 +270,10 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"mat
       yen: rest.reduce(function (s, k) { return s + yen(k); }, 0)
     };
   }
-  function markKnown(id) {
-    known[id] = 1;
-    Object.keys(mustAnc(id)).forEach(function (k) { known[k] = 1; });
-    persist();
-  }
+  function markKnown(id) { known[id] = 1; persist(); track('complete', id); }
   function unmarkKnown(id) {
     delete known[id];
-    Object.keys(known).forEach(function (k) { if (mustAnc(k)[id]) delete known[k]; });
+    track('unmark', id);
     persist();
   }
 
@@ -256,7 +290,7 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"mat
       '<div class="right">' + (right || '') + '</div></div>';
   }
   function footer() {
-    return '<div class="foot">HOW TO LEARN ANYTHING ｜ ' + esc(CFG.name) + '　試作品。内容はAIの下書きで、未検証。</div>';
+    return '<div class="foot">HOW TO LEARN ANYTHING ｜ ' + esc(CFG.name) + '　試作品。内容はAIの下書きで、未検証。 <a href="#/records">学習の記録・試用への協力</a></div>';
   }
   function yenText(v) { return v.toLocaleString('ja-JP'); }
 
@@ -277,12 +311,14 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"mat
         '<span class="sqs" aria-hidden="true">' + sq + '</span>' +
         (done
           ? '<span class="n">習得済み</span><span class="h"></span>'
-          : '<span class="n">残り <b>' + g.p.rest.length + '</b> 単元</span><span class="h">' + g.p.hours + '<span>H</span></span>') +
+          : '<span class="n">残り <b>' + g.p.rest.length + '</b> 単元</span><span class="h">' + g.p.hours + '<span>H・仮</span></span>') +
         '</a>';
     }).join('');
     var knownCount = Object.keys(known).length;
+    var resume=load('howtree.resume.v1');
+    var resumeHtml=resume && N[resume.goal] && N[resume.node] ? '<p><a class="btn" href="#/g/'+resume.goal+'">前回の続き：'+esc(N[resume.node].name)+'</a></p>' : '';
     app.innerHTML = '<div class="wrap narrow">' + header() +
-      '<div class="hero"><form data-act="search">' +
+      (list('howtree.known.v1').length && !load(KNOWN_KEY) ? '<p class="note">診断を改良しました。旧版で自動推定した習得記録は保管したまま、現在地を確認し直す方式に変更しています。</p>' : '') + resumeHtml + '<div class="hero"><form data-act="search">' +
       '<label for="goal-input">How to</label>' +
       '<div class="field"><input id="goal-input" type="text" list="goal-names" placeholder="SPI非言語" autocomplete="off">' +
       '<datalist id="goal-names">' + names + '</datalist>' +
@@ -413,29 +449,31 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"mat
       if (k === selected) cls += ' sel';
       return '<button type="button" class="' + cls + '" data-act="select" data-id="' + k + '" style="left:' + n.x + 'px;top:' + n.y + 'px">' +
         '<span class="t">' + (num[k] ? '<b>' + num[k] + '</b>' : '') + esc(N[k].name) + '</span>' +
-        '<span class="c">' + hours(k) + ' H</span></button>';
+        '<span class="c">' + '約' + hours(k) + ' H</span></button>';
     }).join('');
     var steps = p.rest.length
       ? p.rest.map(function (k) {
         return '<button type="button" class="step" data-act="select" data-id="' + k + '"><span class="no">' + num[k] + '</span>' +
-          '<span class="t">' + esc(N[k].name) + '</span><span class="h">' + hours(k) + ' H</span></button>';
+          '<span class="t">' + esc(N[k].name) + '</span><span class="h">' + '約' + hours(k) + ' H</span></button>';
       }).join('')
       : '<p class="muted">この目標は、すでに習得済み。</p>';
-    app.innerHTML = '<div class="wrap">' + header('<a class="link" href="#/check">現在地を調べる</a>') +
+    app.innerHTML = '<div class="wrap">' + header('<a class="link" href="#/check/'+goal+'">この目標の現在地を調べる</a>') +
       '<div class="band"><div class="main"><span class="tag">目標</span><h1>' + esc(N[goal].name) + '</h1><p>' + esc(N[goal].goal) + '</p></div>' +
       '<div class="stats"><div class="stat"><div class="k">残り</div><div class="v">' + p.rest.length + '<span class="jp">単元</span></div></div>' +
-      '<div class="stat"><div class="k">学習時間</div><div class="v">' + p.hours + '<span class="jp">時間</span></div></div>' +
+      '<div class="stat"><div class="k">学習時間（仮の目安）</div><div class="v">' + p.hours + '<span class="jp">時間</span></div></div>' +
       (p.yen ? '<div class="stat"><div class="k">費用</div><div class="v">' + yenText(p.yen) + '<span class="jp">円</span></div></div>' : '') +
       '</div></div>' +
-      '<div class="legend" style="margin-top:20px"><span><i style="border:2px solid var(--red);background:#fff"></i>これから進む</span>' +
+      '<p class="note">時間は実測前の仮置きです。教材の購入費は含みません。既にできる単元は個別に習得済みにできます。</p>' + (N[goal].scope_note ? '<p class="note">'+esc(N[goal].scope_note)+'</p>' : '') + '<div class="legend" style="margin-top:20px"><span><i style="border:2px solid var(--red);background:#fff"></i>これから進む</span>' +
       '<span><i style="background:var(--ink)"></i>習得済み</span>' +
       '<span><i style="border:1px solid var(--ink)"></i>通らなくてよい</span>' +
       '<span><i style="height:2px;width:22px;background:var(--gray)"></i>細い線は「あると楽」</span></div>' +
-      '<div class="treebox"><div class="tree" style="width:' + L.width + 'px;height:' + L.height + 'px">' +
+      (p.rest.length ? '<p><button class="btn" data-act="next" data-id="'+p.rest[0]+'">次の一単元：'+esc(N[p.rest[0]].name)+'</button></p>' : '') + '<p class="note mobile-hint">ツリーは上下・左右にスクロールできます。下の一覧からも単元を選べます。</p><div class="treebox"><div class="tree" style="width:' + L.width + 'px;height:' + L.height + 'px">' +
       '<svg width="' + L.width + '" height="' + L.height + '" aria-hidden="true">' + paths + '</svg>' + boxes + '</div></div>' +
       '<div class="cols"><div><div class="rule"></div><h2>進む順番</h2><div class="steps">' + steps + '</div></div>' +
       '<div class="detail">' + detail(selected, goal) + '</div></div>' +
       footer() + '</div>';
+    var treebox=document.querySelector('.treebox');
+    if(window.innerWidth<=640) treebox.scrollTop=Math.max(0,(treebox.scrollHeight-treebox.clientHeight)/2);
   }
 
   function chips(ids, cls) {
@@ -448,7 +486,7 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"mat
     var n = N[id];
     var res = (n.resources || []).map(function (r) {
       return '<div class="res"><span class="badge' + (r.free ? ' fill' : '') + '">' + (r.free ? '無料' : '本') + '</span>' +
-        '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.title) + '</a>' +
+        '<a data-act="resource" data-id="'+id+'" data-v="'+esc(r.url)+'" href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.title) + '</a>' +
         (r.assumes ? '<span class="a">前提: ' + esc(r.assumes) + '</span>' : '') + '</div>';
     }).join('');
     var tag = CFG.amazon_tag ? '&tag=' + encodeURIComponent(CFG.amazon_tag) : '';
@@ -475,9 +513,9 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"mat
       '<div class="blk"><div class="sub">到達条件</div><p>' + esc(n.goal) + '</p></div>' +
       '<div class="blk"><div class="sub">必須の前提</div>' + chips(reqs(id, ['must']), '') + '</div>' +
       '<div class="blk"><div class="sub">あると楽</div>' + chips(reqs(id, ['helps']), 'helps') + '</div>' +
-      '<div class="blk"><div class="sub">読む資料</div>' + (res || '<p class="muted">資料はまだ選ばれていない。</p>') +
-      '<p><a class="link" href="' + search + '" target="_blank" rel="noopener">この単元の本を探す</a>' + (CFG.amazon_tag ? ' <span class="note">紹介リンク</span>' : '') + '</p></div>' +
-      '<div class="blk btns">' +
+      miniLesson(n) + '<div class="blk"><div class="sub">読む資料</div>' + (res || '<p class="muted">資料はまだ選ばれていない。</p>') +
+      '<p><a data-act="resource" data-id="'+id+'" data-v="book-search" class="link" href="' + search + '" target="_blank" rel="noopener sponsored">この単元の本を探す</a>' + (CFG.amazon_tag ? ' <span class="note">紹介リンク</span>' : '') + '</p></div>' +
+      '<div class="blk"><button class="btn red" data-act="start" data-id="'+id+'">'+(list(START_KEY).indexOf(id)>=0?'学習中・ここから再開':'ここから学習を始める')+'</button><p class="note">資料を別タブで開き、戻ったら到達条件を確認して習得済みにしてください。</p></div>' + (n.sources ? '<div class="blk"><div class="sub">範囲を確認した資料</div>'+n.sources.map(function(r){return '<p><a target="_blank" rel="noopener" href="'+esc(r.url)+'">'+esc(r.title)+'</a></p>';}).join('')+'</div>':'') + '<div class="blk btns">' +
       (id !== goal ? '<a class="btn red" href="#/g/' + id + '">ここを目標にする</a>' : '') +
       (known[id]
         ? '<button type="button" class="btn" data-act="unknow" data-id="' + id + '">習得済みを取り消す</button>'
@@ -489,39 +527,27 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"mat
       }).join('') + '</div>' + report + '</div>';
   }
 
-  // ---- 現在地の診断 ----
-  var trunk = Object.keys(N).filter(function (k) { return N[k].trunk && N[k].check; }).sort(function (a, b) { return N[a].trunk - N[b].trunk; });
+  // 目標の前提を個別に確認する。正解から他単元の習得を推定しない。
   var chk = null;
-  function viewCheck() {
-    if (!chk) chk = { lo: -1, hi: trunk.length, count: 0 };
-    var done = chk.hi - chk.lo <= 1;
-    var mid = Math.floor((chk.lo + chk.hi) / 2);
-    var strip = trunk.map(function (k, i) {
-      var cls = i <= chk.lo ? 'ok' : (!done && i === mid) ? 'cur' : i >= chk.hi ? 'far' : '';
-      return '<span class="' + cls + '">' + esc(N[k].name) + '</span>';
-    }).join('');
-    var card;
-    if (done) {
-      var result = chk.lo < 0 ? '最初の単元から始める' : '「' + esc(N[trunk[chk.lo]].name) + '」まで分かっている';
-      card = '<div class="sub">結果</div><div class="q">' + result + '</div><div class="btns">' +
-        '<button type="button" class="btn red big" data-act="check-apply">この結果を現在地にする</button>' +
-        '<button type="button" class="btn big" data-act="check-reset">やり直す</button></div>';
-    } else {
-      card = '<div class="sub">' + esc(N[trunk[mid]].name) + '</div><div class="q">' + esc(N[trunk[mid]].check) + '</div><div class="btns">' +
-        '<button type="button" class="btn fill big" data-act="check-yes">解ける</button>' +
-        '<button type="button" class="btn big" data-act="check-no">解けない</button>' +
-        '<button type="button" class="btn big" data-act="check-no">わからない言葉がある</button></div>' +
-        '<p class="note">答えを入力する必要はない。解けるかどうかだけ選ぶ。</p>';
+  function viewCheck(goal) {
+    goal = N[goal] ? goal : 'spi-nonverbal';
+    if (!chk || chk.goal !== goal) {
+      var all=mustAnc(goal); all[goal]=1;
+      chk={goal:goal, ids:Object.keys(all).filter(function(k){return N[k].assessment;}).sort(byDepth), i:0, answers:Object.assign({},known), revealed:false};
     }
-    var maxQ = Math.ceil(Math.log(trunk.length + 1) / Math.LN2);
-    app.innerHTML = '<div class="wrap narrow">' + header() +
-      '<div class="band"><div class="main"><span class="tag">現在地を調べる</span><h1 style="font-size:34px">' +
-      (done ? '現在地がわかった' : '次の問題は解けますか') + '</h1></div>' +
-      '<div class="stat"><div class="v">' + (done ? chk.count : chk.count + 1) + '<span class="jp">問目 / 最大' + maxQ + '問</span></div></div></div>' +
-      '<div class="card">' + card + '</div>' +
-      '<div class="sec" style="padding-top:40px"><div class="rule"></div><h2>調べている範囲</h2><div class="strip">' + strip + '</div>' +
-      '<p class="note">調べるのは数学の幹だけ。ほかの単元は、木の上で「習得済みにする」を押して直せる。</p></div>' +
-      footer() + '</div>';
+    var done=chk.i>=chk.ids.length, id=chk.ids[chk.i], card='';
+    if(done){
+      card='<h2>結果を確認して、残す単元を選ぶ</h2><p>チェックした単元だけを習得済みにします。一問では単元全体を判定できないため、到達条件も確認してください。</p>'+chk.ids.map(function(k){
+        return '<label class="review-row"><input type="checkbox" data-act="check-toggle" data-id="'+k+'" '+(chk.answers[k]?'checked':'')+'> <b>'+esc(N[k].name)+'</b><span>'+esc(N[k].goal)+'</span></label>';
+      }).join('')+'<div class="btns"><button class="btn red" data-act="check-apply">選んだ単元だけ反映して木へ</button><button class="btn" data-act="check-reset">やり直す</button></div>';
+    } else {
+      var q=N[id].assessment;
+      card='<div class="sub">'+esc(N[id].name)+'</div><div class="q">'+esc(q.question)+'</div>';
+      if(chk.revealed) card+='<p role="status">'+(chk.answers[id]?'正解です。':'ここは復習の候補です。')+' '+esc(q.explanation)+'</p><button class="btn red" data-act="check-next">次へ</button>';
+      else card+='<div class="btns">'+q.options.map(function(o,i){return '<button class="btn" data-act="check-answer" data-v="'+i+'">'+esc(o)+'</button>';}).join('')+'<button class="btn" data-act="check-answer" data-v="-1">わからない・後で確認</button></div>';
+      card+='<p><button class="link" data-act="check-finish">ここまでで結果を見る</button></p>';
+    }
+    app.innerHTML='<div class="wrap narrow">'+header()+'<div class="band"><div><span class="tag">'+esc(N[goal].name)+'</span><h1>開始地点を確認する</h1><p>'+ (done?'結果の見直し':(chk.i+1)+' / '+chk.ids.length+'問・途中で終えられます')+'</p></div></div><p class="note">独自の確認問題です。SPIの実問題や能力判定ではありません。反映ボタンを押すまでは、既存の習得記録は変更しません。結果画面でチェックを直せます。</p><div class="card">'+card+'</div><p><a class="link" href="#/g/'+goal+'">反映せず木を見る</a></p>'+footer()+'</div>';
   }
 
   // ---- 画面の切り替えと操作 ----
@@ -530,48 +556,59 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","groups":{"mat
     var h = location.hash.replace(/^#\/?/, '');
     if (h.indexOf('g/') === 0) {
       var goal = decodeURIComponent(h.slice(2));
-      if (goal !== lastGoal) { selected = goal; reportMode = ''; lastGoal = goal; }
+      if (goal !== lastGoal) { var resume=load('howtree.resume.v1'); selected = resume && resume.goal===goal && N[resume.node] ? resume.node : goal; reportMode = ''; lastGoal = goal; track('goal', goal); }
       viewGoal(goal);
-    } else if (h === 'check') {
-      viewCheck();
+    } else if (h === 'records') { viewRecords();
+    } else if (h === 'check' || h.indexOf('check/') === 0) {
+      viewCheck(h.slice(6));
     } else {
       viewTop();
     }
   }
   function rerenderKeepingScroll() {
     var box = document.querySelector('.treebox');
-    var sx = box ? box.scrollLeft : 0, sy = window.scrollY;
+    var sx = box ? box.scrollLeft : 0, st = box ? box.scrollTop : 0, sy = window.scrollY;
     render();
     box = document.querySelector('.treebox');
-    if (box) box.scrollLeft = sx;
+    if (box) { box.scrollLeft = sx; box.scrollTop = st; }
     window.scrollTo(0, sy);
   }
-  window.addEventListener('hashchange', function () { render(); window.scrollTo(0, 0); });
+  window.addEventListener('hashchange', function () { if(location.hash.indexOf('#/g/')!==0) lastGoal=null; render(); window.scrollTo(0, 0); });
 
   app.addEventListener('click', function (ev) {
     var el = ev.target.closest('[data-act]');
     if (!el || el.tagName === 'FORM') return;
     var act = el.getAttribute('data-act'), id = el.getAttribute('data-id'), v = el.getAttribute('data-v');
-    if (act === 'select') { selected = id; reportMode = ''; rerenderKeepingScroll(); }
+    if (act === 'next') { selected=id; reportMode=''; render(); document.querySelector('.detail').scrollIntoView({behavior:'smooth'}); }
+    else if (act === 'select') { selected = id; reportMode = ''; rerenderKeepingScroll(); }
     else if (act === 'know') { markKnown(id); rerenderKeepingScroll(); }
     else if (act === 'unknow') { unmarkKnown(id); rerenderKeepingScroll(); }
     else if (act === 'report') { reportMode = v; rerenderKeepingScroll(); }
     else if (act === 'report-send') {
-      var list = load(REPORT_KEY) || [];
-      list.push({ node: selected, kind: reportMode, value: v, at: new Date().toISOString() });
-      save(REPORT_KEY, list);
+      var reports = list(REPORT_KEY);
+      reports.push({ node: selected, kind: reportMode, value: v, at: new Date().toISOString() });
+      save(REPORT_KEY, reports.slice(-1000));
+      if (reportMode === 'done') markKnown(selected);
+      track('report',selected,reportMode);
       reportMode = 'sent';
       rerenderKeepingScroll();
     }
     else if (act === 'reset') { known = {}; persist(); render(); }
-    else if (act === 'check-yes') { chk.lo = Math.floor((chk.lo + chk.hi) / 2); chk.count++; render(); }
-    else if (act === 'check-no') { chk.hi = Math.floor((chk.lo + chk.hi) / 2); chk.count++; render(); }
-    else if (act === 'check-reset') { chk = null; render(); }
-    else if (act === 'check-apply') {
-      if (chk.lo >= 0) markKnown(trunk[chk.lo]);
-      chk = null;
-      location.hash = '#/';
+    else if(act==='check-answer'){ var k=chk.ids[chk.i]; chk.answers[k]=Number(v)===N[k].assessment.answer; chk.revealed=true; track('check',k,chk.answers[k]?'correct':'review'); render(); }
+    else if(act==='check-next'){chk.i++; chk.revealed=false; render();}
+    else if(act==='check-finish'){chk.i=chk.ids.length; render();}
+    else if(act==='check-toggle'){chk.answers[id]=el.checked;}
+    else if(act==='check-reset'){chk=null; render();}
+    else if(act==='check-apply'){
+      chk.ids.forEach(function(k){if(chk.answers[k]) known[k]=1; else if(chk.answers[k]===false) delete known[k];}); persist();
+      var dest=chk.goal; chk=null; track('check_apply',dest); location.hash='#/g/'+dest;
     }
+    else if(act==='resource'){track('resource',id,v);}
+    else if(act==='start'){var started=list(START_KEY); if(started.indexOf(id)<0) started.push(id); save(START_KEY,started); save('howtree.resume.v1',{goal:lastGoal,node:id}); track('start',id); rerenderKeepingScroll();}
+    else if(act==='measure'){save(CONSENT_KEY,load(CONSENT_KEY)!==true); render();}
+    else if(act==='export'){exportRecords();}
+    else if(act==='erase'){save(EVENT_KEY,[]); save(REPORT_KEY,[]); render();}
+
   });
   app.addEventListener('submit', function (ev) {
     ev.preventDefault();
