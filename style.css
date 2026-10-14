@@ -206,3 +206,14 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ink);outline-offset
 a.step { text-decoration: none; }
 a.btn + a.btn { margin-left: 0; }
 .adslot { margin-top: 36px; padding-top: 12px; border-top: 1px solid var(--line); min-height: 120px; }
+.ptable.match td { text-align: center; min-width: 2.5em; }
+.tree path.or { stroke-dasharray: 16 8; }
+.branches { margin-top: 24px; }
+.branch { margin-top: 12px; }
+.breakdown { margin: 20px 0 28px; max-width: 760px; }
+.bd-row { display: flex; align-items: center; gap: 12px; margin-top: 6px; font-size: 14px; }
+.bd-name { flex: 0 0 13em; font-weight: 700; }
+.bd-bar { flex: 1 1 auto; height: 10px; background: var(--line); }
+.bd-bar i { display: block; height: 100%; background: var(--ink); }
+.bd-v { flex: 0 0 9em; text-align: right; font-family: var(--latin); font-weight: 600; color: var(--gray); }
+@media (max-width: 640px) { .bd-name { flex-basis: 8em; } .bd-v { flex-basis: 7em; } }
