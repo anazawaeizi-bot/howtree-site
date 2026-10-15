@@ -217,3 +217,4 @@ a.btn + a.btn { margin-left: 0; }
 .bd-bar i { display: block; height: 100%; background: var(--ink); }
 .bd-v { flex: 0 0 9em; text-align: right; font-family: var(--latin); font-weight: 600; color: var(--gray); }
 @media (max-width: 640px) { .bd-name { flex-basis: 8em; } .bd-v { flex-basis: 7em; } }
+.chip .route-note { display: block; font-size: 12px; font-weight: 500; }
