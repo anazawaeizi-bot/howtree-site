@@ -228,6 +228,9 @@ a.btn + a.btn { margin-left: 0; }
 .bd-v { flex: 0 0 9em; text-align: right; font-family: var(--latin); font-weight: 600; color: var(--gray); }
 @media (max-width: 640px) { .bd-name { flex-basis: 8em; } .bd-v { flex-basis: 7em; } }
 .chip .route-note { display: block; font-size: 12px; font-weight: 500; }
+.nd.long .t { font-size: 12px; line-height: 14px; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.nd.long .t b { font-size: 13px; margin-right: 3px; }
+.nd.long .c { font-size: 11px; line-height: 13px; }
 
 </style>
 </head>
@@ -441,6 +444,26 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","publish":{"ba
       (HAS_ADS ? '<br>一部のリンクは紹介リンクです。購入や申込があると、運営者が紹介料を受け取ることがあります。' : '') + '</div>';
   }
   function yenText(v) { return v.toLocaleString('ja-JP'); }
+  // 文字の幅を、全角1文字を1として数える(半角は0.55)
+  function textWidth(s) { return Array.prototype.reduce.call(String(s), function (w, ch) { return w + (ch.charCodeAt(0) < 0x2000 ? 0.55 : 1); }, 0); }
+  // 箱の名前を2行に分ける位置。両方の行が箱に収まる位置のうち、「と」「・」の後ろ、次に「の」の後ろを選び、
+  // 同じなら、名前を半分に近く分けるほうを選ぶ(番号の幅は入れない。入れると「個人資／産相談業務」のように語の途中で切れる)。
+  // lead は1行目の頭に付く番号の幅。収まる位置がなければ null。
+  function splitName(name, lead) {
+    var best = null, MAX = 8;
+    for (var i = 2; i <= name.length - 2; i++) {
+      var a = name.slice(0, i), b = name.slice(i);
+      if (textWidth(a) + lead > MAX || textWidth(b) > MAX) continue;
+      var prev = name.charAt(i - 1), rank = 'と・'.indexOf(prev) >= 0 ? 0 : prev === 'の' ? 1 : 2;
+      // 漢字が続く語(保険顧客資産…)は2字ずつの語でできていることが多いので、並びの途中では偶数文字目で切る
+      var run = 0;
+      while (run < i && /[一-鿿]/.test(name.charAt(i - 1 - run))) run++;
+      if (rank === 2 && run > 0 && run < i + 1 && /[一-鿿]/.test(name.charAt(i)) && run % 2) rank = 3;
+      var score = rank * 100 + Math.abs(textWidth(a) - textWidth(b));
+      if (!best || score < best.score) best = { a: a, b: b, score: score };
+    }
+    return best;
+  }
 
   // ---- トップ ----
   var topMessage = '';
@@ -1019,8 +1042,15 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","publish":{"ba
       else if (known[k]) cls += ' known';
       if (N[k].status === 'stub') cls += ' stub';
       if (k === selected) cls += ' sel';
-      return '<button type="button" class="' + cls + '" data-act="select" data-id="' + k + '" style="left:' + n.x + 'px;top:' + n.y + 'px">' +
-        '<span class="t">' + (num[k] ? '<b>' + num[k] + '</b>' : '') + esc(N[k].name) + '</span>' +
+      // 1行に収まらない名前は、文字を小さくして、切れ目のよい位置で2行に分ける(箱の大きさは配置の計算と同じまま)
+      var lead = num[k] ? String(num[k]).length * 0.6 + 0.3 : 0, label = esc(N[k].name);
+      if (textWidth(N[k].name) + lead > 7.5) {
+        cls += ' long';
+        var cut = splitName(N[k].name, lead);
+        if (cut) label = esc(cut.a) + '<br>' + esc(cut.b);
+      }
+      return '<button type="button" class="' + cls + '" data-act="select" data-id="' + k + '" title="' + esc(N[k].name) + '" style="left:' + n.x + 'px;top:' + n.y + 'px">' +
+        '<span class="t">' + (num[k] ? '<b>' + num[k] + '</b>' : '') + label + '</span>' +
         '<span class="c">' + (N[k].status === 'stub' ? '未作成' : '約' + hours(k) + ' H') + '</span></button>';
     }).join('');
     var selectedStep = p.rest.indexOf(selected);
@@ -1298,6 +1328,14 @@ window.HOWTREE_DATA = {"config":{"name":"Howtree","amazon_tag":"","publish":{"ba
     return layout(goal, SYSTEMS.filter(function (s) { return s.id === systemId; })[0] || null);
   };
   window.HOWTREE_LAYOUT.box = { w: BW, h: BH };
+  // 箱の名前の機械検査(tests/labels.cjs)から呼ぶ入口。digits は頭に付く番号の桁数(0なら番号なし)。
+  // 返す値: 1行に収まるなら { lines: [名前] }、2行に分けられるなら { lines: [1行目, 2行目] }、どちらでもなければ null。
+  window.HOWTREE_LABEL = function (name, digits) {
+    var lead = digits ? digits * 0.6 + 0.3 : 0;
+    if (textWidth(name) + lead <= 7.5) return { lines: [name] };
+    var cut = splitName(name, lead);
+    return cut ? { lines: [cut.a, cut.b] } : null;
+  };
   // 分かれ道の機械検査(tests/branch.cjs)から呼ぶ入口
   window.HOWTREE_PLAN = function (goal, choices, knownIds) {
     choice = choices || {}; known = {};

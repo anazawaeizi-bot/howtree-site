@@ -218,3 +218,6 @@ a.btn + a.btn { margin-left: 0; }
 .bd-v { flex: 0 0 9em; text-align: right; font-family: var(--latin); font-weight: 600; color: var(--gray); }
 @media (max-width: 640px) { .bd-name { flex-basis: 8em; } .bd-v { flex-basis: 7em; } }
 .chip .route-note { display: block; font-size: 12px; font-weight: 500; }
+.nd.long .t { font-size: 12px; line-height: 14px; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.nd.long .t b { font-size: 13px; margin-right: 3px; }
+.nd.long .c { font-size: 11px; line-height: 13px; }
