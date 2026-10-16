@@ -1,0 +1,4 @@
+# Cloudflare Pages の応答ヘッダー。pages.py が作る。手で直さない。
+/*
+  X-Content-Type-Options: nosniff
+  X-Robots-Tag: noindex
