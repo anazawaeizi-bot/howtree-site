@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ネットワークの基礎とは：前提と学ぶ順番｜Howtree</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="IPアドレス、DNS、DHCP、メールやWebのプロトコルの役割を説明して場面に合う仕組みを選び、IPv4で区別できるアドレスの数を求められる。 前提の単元は4個、学習時間の目安は合計49時間。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Howtree">
+<meta property="og:title" content="ネットワークの基礎とは：前提と学ぶ順番｜Howtree">
+<meta property="og:description" content="IPアドレス、DNS、DHCP、メールやWebのプロトコルの役割を説明して場面に合う仕組みを選び、IPv4で区別できるアドレスの数を求められる。 前提の単元は4個、学習時間の目安は合計49時間。">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap narrow"><div class="hd"><a class="brand" href="../index.html"><span class="logo"><i class="b1"></i><i class="b2"></i><i class="c1"></i><i class="c2"></i><i class="c3"></i></span><span class="word"><small>HOW TO<br>LEARN ANYTHING</small><b>Howtree</b></span></a><div class="right"><a class="link" href="../n/index.html">単元の一覧</a></div></div><div class="band"><div class="main"><span class="tag">単元</span><h1>ネットワークの基礎</h1><p>IPアドレス、DNS、DHCP、メールやWebのプロトコルの役割を説明して場面に合う仕組みを選び、IPv4で区別できるアドレスの数を求められる。</p></div><div class="stats"><div class="stat"><div class="k">前提の単元</div><div class="v">4<span class="jp">個</span></div></div><div class="stat"><div class="k">学習時間（仮の目安）</div><div class="v">49<span class="jp">時間</span></div></div></div></div><p class="note">時間は、前提をひとつも習得していない場合の合計で、実測前の仮置きです。習得済みの単元を外した自分用の経路は、ツリーで見られます。</p><div class="btns" style="margin-top:20px"><a class="btn red" href="../index.html#/g/ip-network">ツリーで経路を見る</a><a class="btn" href="../index.html#/check/ip-network">現在地を調べる</a></div><div class="blk concept"><div class="rule"></div><h2>ネットワークの基礎とは</h2><p>建物の中など限られた範囲のネットワークをLAN、離れた場所のLANどうしを通信事業者の回線でつないだものをWANといいます。ネットワークとネットワークをつなぎ、データを届ける経路を選ぶ機器がルータです。ほかの機器にサービスを提供するコンピュータをサーバといいます。ネットワークにつながった機器には、住所にあたるIPアドレスが割り当てられます。IPv4のIPアドレスは32ビット、IPv6は128ビットです。通信の手順の決まりをプロトコルといい、インターネットではTCP/IPを土台に、用途ごとのプロトコルを組み合わせます。人が覚えやすいドメイン名（www.example.jp など）を、IPアドレスに対応づけて調べる仕組みがDNSです。DHCPは、機器がネットワークにつながったときに、IPアドレスなどの設定を自動で割り当てます。WebページのやりとりにはHTTP（暗号化したものはHTTPS）を使います。メールを送るときはSMTPを使い、受け取るときはPOPかIMAPを使います。POPはメールを自分の機器に取り込んで読み、IMAPはメールをサーバに置いたまま読むので、複数の機器から同じ状態のメールを見られます。</p><pre class="step-formula">URL　https://www.example.jp/news.html
+　https：スキーム（使うプロトコル）
+　www.example.jp：ドメイン名
+　news.html：サーバの中のファイル
+IPv4のアドレスの書き方：32ビットを8ビットずつ4つに分け、10進数で 192.168.1.10 のように書く</pre><p class="note">1つの区切りは8ビットなので、0から255までの数になります。</p></div><div class="breakdown"><div class="sub">時間の内訳</div><div class="bd-row"><span class="bd-name">中学までの数学</span><span class="bd-bar"><i style="width:61.2%"></i></span><span class="bd-v">30時間・2単元</span></div><div class="bd-row"><span class="bd-name">ITパスポート</span><span class="bd-bar"><i style="width:28.6%"></i></span><span class="bd-v">14時間・2単元</span></div><div class="bd-row"><span class="bd-name">公務員試験の数的処理</span><span class="bd-bar"><i style="width:10.2%"></i></span><span class="bd-v">5時間・1単元</span></div></div><div class="blk"><div class="rule"></div><h2>ネットワークの基礎までに進む順番</h2><div class="steps"><a class="step" href="math-addsub.html"><span class="no">1</span><span class="t">たし算ひき算</span><span class="h">約10 H</span></a><a class="step" href="math-muldiv.html"><span class="no">2</span><span class="t">かけ算わり算</span><span class="h">約20 H</span></a><a class="step" href="kmn-base-n.html"><span class="no">3</span><span class="t">n進法</span><span class="h">約5 H</span></a><a class="step" href="ip-binary.html"><span class="no">4</span><span class="t">2進数と情報量</span><span class="h">約6 H</span></a></div></div><div class="blk"><div class="rule"></div><h2>問題で学ぶ</h2><p>場面から、ネットワークの仕組みとプロトコルを選ぶ</p><a class="btn red" href="../index.html#/practice/ip-network">4問の例題を開く</a></div><div class="blk"><div class="rule"></div><h2>範囲を確認した資料</h2><p><a class="link" href="https://www.ipa.go.jp/shiken/syllabus/omgdg50000005kn1-att/syllabus_ip_ver6_5.pdf" target="_blank" rel="noopener">IPA：ITパスポート試験 シラバス（Ver.6.5）中分類22 ネットワーク</a> <span class="note">2026-10-16に確認</span></p></div><div class="blk"><div class="rule"></div><h2>この単元が要る目標</h2><div class="btns"><a class="btn" href="ip.html">ITパスポート</a></div></div><div class="foot">HOW TO LEARN ANYTHING ｜ Howtree　試作品。内容はAIの下書きを含みます。 <a href="../about.html">運営者・紹介リンク・データの扱い</a></div></div>
+</body>
+</html>
