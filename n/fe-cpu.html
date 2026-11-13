@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CPUの性能とキャッシュとは：前提と学ぶ順番｜Howtree</title>
+<meta name="robots" content="index, follow">
+<meta name="description" content="クロック周波数とCPIから1命令の実行時間とMIPS値を求め、キャッシュメモリのヒット率から実効アクセス時間を計算できる。 前提の単元は4個、学習時間の目安は6時間（学校で習う土台を除く）。">
+<link rel="canonical" href="https://howtree.pages.dev/n/fe-cpu">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Howtree">
+<meta property="og:title" content="CPUの性能とキャッシュとは：前提と学ぶ順番｜Howtree">
+<meta property="og:description" content="クロック周波数とCPIから1命令の実行時間とMIPS値を求め、キャッシュメモリのヒット率から実効アクセス時間を計算できる。 前提の単元は4個、学習時間の目安は6時間（学校で習う土台を除く）。">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://howtree.pages.dev/n/fe-cpu">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Howtree", "item": "https://howtree.pages.dev/"}, {"@type": "ListItem", "position": 2, "name": "単元と到達点の一覧", "item": "https://howtree.pages.dev/n/"}, {"@type": "ListItem", "position": 3, "name": "CPUの性能とキャッシュ", "item": "https://howtree.pages.dev/n/fe-cpu"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap narrow"><div class="hd"><a class="brand" href="../"><span class="logo"><i class="b1"></i><i class="b2"></i><i class="c1"></i><i class="c2"></i><i class="c3"></i></span><span class="word"><small>HOW TO<br>LEARN ANYTHING</small><b>Howtree</b></span></a><div class="right"><a class="link" href="../n/">単元の一覧</a></div></div><div class="band"><div class="main"><span class="tag">単元</span><h1>CPUの性能とキャッシュ</h1><p>クロック周波数とCPIから1命令の実行時間とMIPS値を求め、キャッシュメモリのヒット率から実効アクセス時間を計算できる。</p></div><div class="stats"><div class="stat"><div class="k">前提の単元</div><div class="v">4<span class="jp">個</span></div></div><div class="stat"><div class="k">学習時間（仮の目安）</div><div class="v">6<span class="jp">時間</span></div></div></div></div><p class="note">時間は、この目標のための単元の合計です。ほかに、学校で習う土台（中学までの数学）の単元が4個・約85時間あり、習っていれば要りません。前提をひとつも習得していない場合の合計は約91時間です。どれも実測前の仮置きです。習得済みの単元を外した自分用の経路は、ツリーで見られます。</p><div class="btns" style="margin-top:20px"><a class="btn red" href="../#/g/fe-cpu">ツリーで経路を見る</a><a class="btn" href="../#/check/fe-cpu">現在地を調べる</a></div><div class="blk concept"><div class="rule"></div><h2>CPUの性能とキャッシュとは</h2><p>CPUは、一定の間隔で刻まれる信号(クロック)に合わせて命令を実行します。1秒間のクロックの数をクロック周波数といい、単位はHz(ヘルツ)です。1GHzは1秒に10億回(10の9乗回)です。1つの命令を実行するのに要るクロックの数の平均をCPIといいます。1命令の実行時間は、1クロックの時間(1 ÷ クロック周波数)にCPIをかけたものです。1秒間に実行できる命令の数を100万(10の6乗)の単位で表したものをMIPSといい、クロック周波数 ÷ CPI ÷ 100万 で求めます。命令の種類ごとにCPIが違うときは、命令の出てくる割合で重みを付けて平均します。また、CPUとくらべて主記憶(メインメモリ)は読み書きが遅いので、間に小さくて速いキャッシュメモリを置きます。読みたいデータがキャッシュにある割合をヒット率といい、平均の読み出し時間(実効アクセス時間)は、ヒット率 × キャッシュの時間 + (1 − ヒット率) × 主記憶の時間 で求めます。時間の単位には、ナノ秒(10億分の1秒)を使います。</p><pre class="step-formula">例　クロック周波数 4GHz、CPI 5
+1クロックの時間：1 ÷ 4000000000 秒 = 0.25 ナノ秒
+1命令の実行時間：0.25 × 5 = 1.25 ナノ秒
+MIPS：4000000000 ÷ 5 ÷ 1000000 = 800</pre><p class="note">実際のCPUは、パイプラインなどで複数の命令を並行して進めますが、試験の計算では、ここでの式で求めます。</p></div><div class="breakdown"><div class="sub">時間の内訳</div><div class="bd-row"><span class="bd-name">中学までの数学</span><span class="bd-bar"><i style="width:93.4%"></i></span><span class="bd-v">85時間・4単元</span></div><div class="bd-row"><span class="bd-name">基本情報技術者試験</span><span class="bd-bar"><i style="width:6.6%"></i></span><span class="bd-v">6時間・1単元</span></div></div><div class="blk"><div class="rule"></div><h2>CPUの性能とキャッシュまでに進む順番</h2><div class="steps"><a class="step" href="math-addsub"><span class="no">1</span><span class="t">たし算ひき算</span><span class="h">約10 H</span></a><a class="step" href="math-muldiv"><span class="no">2</span><span class="t">かけ算わり算</span><span class="h">約20 H</span></a><a class="step" href="math-fraction"><span class="no">3</span><span class="t">小数と分数</span><span class="h">約40 H</span></a><a class="step" href="math-ratio"><span class="no">4</span><span class="t">割合と比</span><span class="h">約15 H</span></a></div></div><div class="blk"><div class="rule"></div><h2>問題で学ぶ</h2><p>命令の実行時間と、メモリの読み出し時間を求める</p><a class="btn red" href="../#/practice/fe-cpu">3問の例題を開く</a></div><div class="blk"><div class="rule"></div><h2>範囲を確認した資料</h2><p><a class="link" href="https://www.ipa.go.jp/shiken/kubun/fe.html" target="_blank" rel="noopener">IPA：基本情報技術者試験(試験区分の案内)</a> <span class="note">2026-11-14に確認</span></p></div><div class="blk"><div class="rule"></div><h2>この単元が要る目標</h2><div class="btns"><a class="btn" href="fe">基本情報技術者試験</a></div></div><div class="foot">HOW TO LEARN ANYTHING ｜ Howtree　<a href="../about">運営者・紹介リンク・データの扱い</a></div></div>
+</body>
+</html>

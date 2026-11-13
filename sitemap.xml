@@ -10,9 +10,12 @@
 <url><loc>https://howtree.pages.dev/n/cab-mental</loc></url>
 <url><loc>https://howtree.pages.dev/n/cab</loc></url>
 <url><loc>https://howtree.pages.dev/n/eng-reading</loc></url>
+<url><loc>https://howtree.pages.dev/n/fe-availability</loc></url>
+<url><loc>https://howtree.pages.dev/n/fe-cpu</loc></url>
 <url><loc>https://howtree.pages.dev/n/fe-datastruct</loc></url>
 <url><loc>https://howtree.pages.dev/n/fe-db</loc></url>
 <url><loc>https://howtree.pages.dev/n/fe-logic</loc></url>
+<url><loc>https://howtree.pages.dev/n/fe-normalize</loc></url>
 <url><loc>https://howtree.pages.dev/n/fe-pseudo</loc></url>
 <url><loc>https://howtree.pages.dev/n/fe-security</loc></url>
 <url><loc>https://howtree.pages.dev/n/fe-sort</loc></url>
@@ -135,6 +138,7 @@
 <url><loc>https://howtree.pages.dev/n/spi-word-usage</loc></url>
 <url><loc>https://howtree.pages.dev/n/spi-work</loc></url>
 <url><loc>https://howtree.pages.dev/n/spi</loc></url>
+<url><loc>https://howtree.pages.dev/n/takken</loc></url>
 <url><loc>https://howtree.pages.dev/n/tama-blank-table</loc></url>
 <url><loc>https://howtree.pages.dev/n/tama-charts</loc></url>
 <url><loc>https://howtree.pages.dev/n/tama-eng-logic</loc></url>
@@ -161,4 +165,9 @@
 <url><loc>https://howtree.pages.dev/n/tgweb-classic</loc></url>
 <url><loc>https://howtree.pages.dev/n/tgweb-new</loc></url>
 <url><loc>https://howtree.pages.dev/n/tgweb</loc></url>
+<url><loc>https://howtree.pages.dev/n/tk-building</loc></url>
+<url><loc>https://howtree.pages.dev/n/tk-business</loc></url>
+<url><loc>https://howtree.pages.dev/n/tk-explain</loc></url>
+<url><loc>https://howtree.pages.dev/n/tk-fee</loc></url>
+<url><loc>https://howtree.pages.dev/n/tk-intent</loc></url>
 </urlset>

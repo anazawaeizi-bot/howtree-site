@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>データベースの正規化とは：前提と学ぶ順番｜Howtree</title>
+<meta name="robots" content="index, follow">
+<meta name="description" content="与えられた列どうしの関数従属から、部分関数従属と推移的関数従属を見つけて、表が第何正規形かを判断し、第3正規形に分けられる。 前提の単元は3個、学習時間の目安は16時間（学校で習う土台を除く）。">
+<link rel="canonical" href="https://howtree.pages.dev/n/fe-normalize">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Howtree">
+<meta property="og:title" content="データベースの正規化とは：前提と学ぶ順番｜Howtree">
+<meta property="og:description" content="与えられた列どうしの関数従属から、部分関数従属と推移的関数従属を見つけて、表が第何正規形かを判断し、第3正規形に分けられる。 前提の単元は3個、学習時間の目安は16時間（学校で習う土台を除く）。">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://howtree.pages.dev/n/fe-normalize">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Howtree", "item": "https://howtree.pages.dev/"}, {"@type": "ListItem", "position": 2, "name": "単元と到達点の一覧", "item": "https://howtree.pages.dev/n/"}, {"@type": "ListItem", "position": 3, "name": "データベースの正規化", "item": "https://howtree.pages.dev/n/fe-normalize"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap narrow"><div class="hd"><a class="brand" href="../"><span class="logo"><i class="b1"></i><i class="b2"></i><i class="c1"></i><i class="c2"></i><i class="c3"></i></span><span class="word"><small>HOW TO<br>LEARN ANYTHING</small><b>Howtree</b></span></a><div class="right"><a class="link" href="../n/">単元の一覧</a></div></div><div class="band"><div class="main"><span class="tag">単元</span><h1>データベースの正規化</h1><p>与えられた列どうしの関数従属から、部分関数従属と推移的関数従属を見つけて、表が第何正規形かを判断し、第3正規形に分けられる。</p></div><div class="stats"><div class="stat"><div class="k">前提の単元</div><div class="v">3<span class="jp">個</span></div></div><div class="stat"><div class="k">学習時間（仮の目安）</div><div class="v">16<span class="jp">時間</span></div></div></div></div><p class="note">時間は、この目標のための単元の合計です。ほかに、学校で習う土台（中学までの数学）の単元が2個・約18時間あり、習っていれば要りません。前提をひとつも習得していない場合の合計は約34時間です。どれも実測前の仮置きです。習得済みの単元を外した自分用の経路は、ツリーで見られます。</p><div class="btns" style="margin-top:20px"><a class="btn red" href="../#/g/fe-normalize">ツリーで経路を見る</a><a class="btn" href="../#/check/fe-normalize">現在地を調べる</a></div><div class="blk concept"><div class="rule"></div><h2>データベースの正規化とは</h2><p>正規化は、同じデータが何か所にも重なって記録されないように、表を分ける手順です。重なりがあると、一か所だけ書きかえて食い違いが起きます。手順の鍵になるのが関数従属で、列Xの値が決まると列Yの値が一つに決まるとき、YはXに関数従属しているといい、X → Y と書きます。第1正規形は、一つの欄に一つの値だけが入り、くり返しの項目がない表です。第2正規形は、第1正規形で、さらに、主キーの一部の列だけで決まる列(部分関数従属)がない表です。主キーが一つの列だけなら、部分関数従属は起こりません。第3正規形は、第2正規形で、さらに、主キーでない列によって決まる列(推移的関数従属。主キー → 列A → 列B のように、間接に決まる)がない表です。部分関数従属や推移的関数従属が見つかったら、その決める側の列と決まる側の列を別の表に移します。元の表からは決まる側の列を除き、決める側の列は残します(二つの表をその列でつなぐ外部キーになります)。主キーが二つ以上の列の組のときは、{受注番号, 商品番号} のように波かっこで書きます。</p><pre class="step-formula">例　表「貸出」(貸出番号、会員番号、会員名、本の番号)、主キーは貸出番号
+会員番号 → 会員名(主キーでない列で決まる：推移的関数従属)
+分けた後：貸出(貸出番号、会員番号、本の番号)、会員(会員番号、会員名)</pre><p class="note">ここでは主キーについて判断します。第3正規形より先の正規形(ボイス・コッド正規形など)は、ここでは扱いません。</p></div><div class="breakdown"><div class="sub">時間の内訳</div><div class="bd-row"><span class="bd-name">中学までの数学</span><span class="bd-bar"><i style="width:52.9%"></i></span><span class="bd-v">18時間・2単元</span></div><div class="bd-row"><span class="bd-name">基本情報技術者試験</span><span class="bd-bar"><i style="width:47.1%"></i></span><span class="bd-v">16時間・2単元</span></div></div><div class="blk"><div class="rule"></div><h2>データベースの正規化までに進む順番</h2><div class="steps"><a class="step" href="math-addsub"><span class="no">1</span><span class="t">たし算ひき算</span><span class="h">約10 H</span></a><a class="step" href="math-table"><span class="no">2</span><span class="t">表とグラフ</span><span class="h">約8 H</span></a><a class="step" href="fe-db"><span class="no">3</span><span class="t">関係データベースとSQL</span><span class="h">約10 H</span></a></div></div><div class="blk"><div class="rule"></div><h2>問題で学ぶ</h2><p>関数従属を読み、表を分ける</p><a class="btn red" href="../#/practice/fe-normalize">3問の例題を開く</a></div><div class="blk"><div class="rule"></div><h2>範囲を確認した資料</h2><p><a class="link" href="https://www.ipa.go.jp/shiken/kubun/fe.html" target="_blank" rel="noopener">IPA：基本情報技術者試験(試験区分の案内)</a> <span class="note">2026-11-14に確認</span></p></div><div class="blk"><div class="rule"></div><h2>この単元が要る目標</h2><div class="btns"><a class="btn" href="fe">基本情報技術者試験</a></div></div><div class="foot">HOW TO LEARN ANYTHING ｜ Howtree　<a href="../about">運営者・紹介リンク・データの扱い</a></div></div>
+</body>
+</html>
