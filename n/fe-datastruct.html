@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>スタック、キュー、リストとは：前提と学ぶ順番｜Howtree</title>
+<meta name="robots" content="index, follow">
+<meta name="description" content="スタック、キュー、リストに値を入れたり取り出したりする操作をたどり、取り出される順や、残る並び、書きかえる要素を求められる。 前提の単元は6個、学習時間の目安は20時間（学校で習う土台を除く）。">
+<link rel="canonical" href="https://howtree.pages.dev/n/fe-datastruct">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Howtree">
+<meta property="og:title" content="スタック、キュー、リストとは：前提と学ぶ順番｜Howtree">
+<meta property="og:description" content="スタック、キュー、リストに値を入れたり取り出したりする操作をたどり、取り出される順や、残る並び、書きかえる要素を求められる。 前提の単元は6個、学習時間の目安は20時間（学校で習う土台を除く）。">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://howtree.pages.dev/n/fe-datastruct">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Howtree", "item": "https://howtree.pages.dev/"}, {"@type": "ListItem", "position": 2, "name": "単元と到達点の一覧", "item": "https://howtree.pages.dev/n/"}, {"@type": "ListItem", "position": 3, "name": "スタック、キュー、リスト", "item": "https://howtree.pages.dev/n/fe-datastruct"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap narrow"><div class="hd"><a class="brand" href="../"><span class="logo"><i class="b1"></i><i class="b2"></i><i class="c1"></i><i class="c2"></i><i class="c3"></i></span><span class="word"><small>HOW TO<br>LEARN ANYTHING</small><b>Howtree</b></span></a><div class="right"><a class="link" href="../n/">単元の一覧</a></div></div><div class="band"><div class="main"><span class="tag">単元</span><h1>スタック、キュー、リスト</h1><p>スタック、キュー、リストに値を入れたり取り出したりする操作をたどり、取り出される順や、残る並び、書きかえる要素を求められる。</p></div><div class="stats"><div class="stat"><div class="k">前提の単元</div><div class="v">6<span class="jp">個</span></div></div><div class="stat"><div class="k">学習時間（仮の目安）</div><div class="v">20<span class="jp">時間</span></div></div></div></div><p class="note">時間は、この目標のための単元の合計です。ほかに、学校で習う土台（中学までの数学）の単元が5個・約103時間あり、習っていれば要りません。前提をひとつも習得していない場合の合計は約123時間です。どれも実測前の仮置きです。習得済みの単元を外した自分用の経路は、ツリーで見られます。</p><div class="btns" style="margin-top:20px"><a class="btn red" href="../#/g/fe-datastruct">ツリーで経路を見る</a><a class="btn" href="../#/check/fe-datastruct">現在地を調べる</a></div><div class="blk concept"><div class="rule"></div><h2>スタック、キュー、リストとは</h2><p>データ構造は、データをどんな形で持ち、どの順で出し入れするかの決まりです。スタックは、後に入れたものを先に取り出す構造で、後入れ先出し(LIFO)といいます。積み重ねた皿を上から取るのと同じです。入れる操作をプッシュ(push)、取り出す操作をポップ(pop)といいます。キューは、先に入れたものを先に取り出す構造で、先入れ先出し(FIFO)といいます。レジの行列と同じです。入れる操作をエンキュー(enqueue)、取り出す操作をデキュー(dequeue)といいます。リスト(連結リスト)は、各要素が「次の要素はどこか」を持ち、その順にたどってデータを並べる構造です。要素を途中に入れたり外したりするとき、ほかの要素を動かさず、「次」の書きかえだけで済みます。</p><pre class="step-formula">スタックに A、B の順にプッシュしてからポップ：取り出されるのは B
+キューに A、B の順にエンキューしてからデキュー：取り出されるのは A
+リストの要素：「値」と「次の要素の番号」の組。最後の要素の「次」には、終わりを表す印を入れる</pre><p class="note">科目Bでは、配列を使ってスタックやキューやリストを作るプログラムが出ます。そのときは、配列の要素番号と、先頭や末尾を指す変数の値を、表に書きながらたどります。</p></div><div class="breakdown"><div class="sub">時間の内訳</div><div class="bd-row"><span class="bd-name">中学までの数学</span><span class="bd-bar"><i style="width:83.7%"></i></span><span class="bd-v">103時間・5単元</span></div><div class="bd-row"><span class="bd-name">基本情報技術者試験</span><span class="bd-bar"><i style="width:16.3%"></i></span><span class="bd-v">20時間・2単元</span></div></div><div class="blk"><div class="rule"></div><h2>スタック、キュー、リストまでに進む順番</h2><div class="steps"><a class="step" href="math-addsub"><span class="no">1</span><span class="t">たし算ひき算</span><span class="h">約10 H</span></a><a class="step" href="math-muldiv"><span class="no">2</span><span class="t">かけ算わり算</span><span class="h">約20 H</span></a><a class="step" href="math-fraction"><span class="no">3</span><span class="t">小数と分数</span><span class="h">約40 H</span></a><a class="step" href="math-negative"><span class="no">4</span><span class="t">正負の数</span><span class="h">約13 H</span></a><a class="step" href="math-letters"><span class="no">5</span><span class="t">文字と式</span><span class="h">約20 H</span></a><a class="step" href="fe-pseudo"><span class="no">6</span><span class="t">擬似言語の読み方</span><span class="h">約12 H</span></a></div></div><div class="blk"><div class="rule"></div><h2>問題で学ぶ</h2><p>出し入れの順をたどり、リストを書きかえる</p><a class="btn red" href="../#/practice/fe-datastruct">4問の例題を開く</a></div><div class="blk"><div class="rule"></div><h2>範囲を確認した資料</h2><p><a class="link" href="https://www.ipa.go.jp/shiken/kubun/fe.html" target="_blank" rel="noopener">IPA：基本情報技術者試験（試験区分の案内）</a> <span class="note">2026-11-13に確認</span></p></div><div class="blk"><div class="rule"></div><h2>この単元が要る目標</h2><div class="btns"><a class="btn" href="fe">基本情報技術者試験</a></div></div><div class="foot">HOW TO LEARN ANYTHING ｜ Howtree　<a href="../about">運営者・紹介リンク・データの扱い</a></div></div>
+</body>
+</html>

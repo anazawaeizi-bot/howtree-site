@@ -223,3 +223,6 @@ a.btn + a.btn { margin-left: 0; }
 .nd.long .t { font-size: 12px; line-height: 14px; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .nd.long .t b { font-size: 13px; margin-right: 3px; }
 .nd.long .c { font-size: 11px; line-height: 13px; }
+
+/* プログラムの欄(問題の code)。字下げに意味があるので、空白を詰めず、等幅で出す(2026-11-13、基本情報の擬似言語) */
+.exercise pre.code{white-space:pre;overflow-x:auto;font-family:"BIZ UDGothic",Consolas,"Courier New",monospace;font-size:16px;line-height:1.7;background:#fff;border:1px solid var(--ink);padding:14px 18px;margin:0 0 24px}

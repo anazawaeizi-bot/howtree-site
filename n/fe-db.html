@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>関係データベースとSQLとは：前提と学ぶ順番｜Howtree</title>
+<meta name="robots" content="index, follow">
+<meta name="description" content="表の主キーと外部キーを見分け、SELECT文の条件による絞り込み、列の取り出し、グループごとの集計の結果を求められる。 前提の単元は2個、学習時間の目安は10時間（学校で習う土台を除く）。">
+<link rel="canonical" href="https://howtree.pages.dev/n/fe-db">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Howtree">
+<meta property="og:title" content="関係データベースとSQLとは：前提と学ぶ順番｜Howtree">
+<meta property="og:description" content="表の主キーと外部キーを見分け、SELECT文の条件による絞り込み、列の取り出し、グループごとの集計の結果を求められる。 前提の単元は2個、学習時間の目安は10時間（学校で習う土台を除く）。">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://howtree.pages.dev/n/fe-db">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Howtree", "item": "https://howtree.pages.dev/"}, {"@type": "ListItem", "position": 2, "name": "単元と到達点の一覧", "item": "https://howtree.pages.dev/n/"}, {"@type": "ListItem", "position": 3, "name": "関係データベースとSQL", "item": "https://howtree.pages.dev/n/fe-db"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap narrow"><div class="hd"><a class="brand" href="../"><span class="logo"><i class="b1"></i><i class="b2"></i><i class="c1"></i><i class="c2"></i><i class="c3"></i></span><span class="word"><small>HOW TO<br>LEARN ANYTHING</small><b>Howtree</b></span></a><div class="right"><a class="link" href="../n/">単元の一覧</a></div></div><div class="band"><div class="main"><span class="tag">単元</span><h1>関係データベースとSQL</h1><p>表の主キーと外部キーを見分け、SELECT文の条件による絞り込み、列の取り出し、グループごとの集計の結果を求められる。</p></div><div class="stats"><div class="stat"><div class="k">前提の単元</div><div class="v">2<span class="jp">個</span></div></div><div class="stat"><div class="k">学習時間（仮の目安）</div><div class="v">10<span class="jp">時間</span></div></div></div></div><p class="note">時間は、この目標のための単元の合計です。ほかに、学校で習う土台（中学までの数学）の単元が2個・約18時間あり、習っていれば要りません。前提をひとつも習得していない場合の合計は約28時間です。どれも実測前の仮置きです。習得済みの単元を外した自分用の経路は、ツリーで見られます。</p><div class="btns" style="margin-top:20px"><a class="btn red" href="../#/g/fe-db">ツリーで経路を見る</a><a class="btn" href="../#/check/fe-db">現在地を調べる</a></div><div class="blk concept"><div class="rule"></div><h2>関係データベースとSQLとは</h2><p>関係データベースは、データを行と列からなる表で持ち、表どうしを共通の列で結びつけて使う仕組みです。表の中で1行を一つに決められる列(または列の組)を主キーといい、同じ値が二つの行に入ることはなく、空にもできません。ほかの表の主キーの値を参照する列を外部キーといい、外部キーには、参照先の表にない値は入れられません。表からデータを取り出すにはSQLのSELECT文を使います。SELECT の後に取り出す列を、FROM の後に表を、WHERE の後に行を絞る条件を書きます。条件の比較には、=(等しい)、&lt;&gt;(等しくない)、&lt;、&gt;、&lt;=(以下)、&gt;=(以上)を使います。条件を AND でつなぐと両方を満たす行、OR でつなぐとどちらかを満たす行が残ります。GROUP BY は、指定した列の値が同じ行をまとめ、COUNT(*)(行の数)、SUM(合計)、AVG(平均)、MAX(最大)、MIN(最小)でグループごとに集計します。HAVING は、集計した後のグループを条件で絞ります。</p><pre class="step-formula">商品(商品番号, 商品名, 単価)：商品番号が主キー
+注文(注文番号, 商品番号, 数量)：注文番号が主キー、商品番号が外部キー
+SELECT 商品名 FROM 商品 WHERE 単価 &lt; 500：単価が500未満の行の商品名だけを取り出す
+SELECT 商品番号, SUM(数量) FROM 注文 GROUP BY 商品番号：商品ごとに数量を合計する</pre><p class="note">WHERE は集計する前の行を絞り、HAVING は集計した後のグループを絞ります。科目Aでは、SQL文の結果の行を選ぶ問題や、主キーや外部キーを選ぶ問題が出ます。</p></div><div class="breakdown"><div class="sub">時間の内訳</div><div class="bd-row"><span class="bd-name">中学までの数学</span><span class="bd-bar"><i style="width:64.3%"></i></span><span class="bd-v">18時間・2単元</span></div><div class="bd-row"><span class="bd-name">基本情報技術者試験</span><span class="bd-bar"><i style="width:35.7%"></i></span><span class="bd-v">10時間・1単元</span></div></div><div class="blk"><div class="rule"></div><h2>関係データベースとSQLまでに進む順番</h2><div class="steps"><a class="step" href="math-addsub"><span class="no">1</span><span class="t">たし算ひき算</span><span class="h">約10 H</span></a><a class="step" href="math-table"><span class="no">2</span><span class="t">表とグラフ</span><span class="h">約8 H</span></a></div></div><div class="blk"><div class="rule"></div><h2>問題で学ぶ</h2><p>SELECT文の結果と、キーを見分ける</p><a class="btn red" href="../#/practice/fe-db">3問の例題を開く</a></div><div class="blk"><div class="rule"></div><h2>範囲を確認した資料</h2><p><a class="link" href="https://www.ipa.go.jp/shiken/kubun/fe.html" target="_blank" rel="noopener">IPA：基本情報技術者試験（試験区分の案内）</a> <span class="note">2026-11-13に確認</span></p></div><div class="blk"><div class="rule"></div><h2>この単元が要る目標</h2><div class="btns"><a class="btn" href="fe">基本情報技術者試験</a></div></div><div class="foot">HOW TO LEARN ANYTHING ｜ Howtree　<a href="../about">運営者・紹介リンク・データの扱い</a></div></div>
+</body>
+</html>

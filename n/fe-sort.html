@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>探索と整列とは：前提と学ぶ順番｜Howtree</title>
+<meta name="robots" content="index, follow">
+<meta name="description" content="線形探索と二分探索、バブルソートの手順をたどり、比較の回数や、途中の並びを求められる。 前提の単元は6個、学習時間の目安は22時間（学校で習う土台を除く）。">
+<link rel="canonical" href="https://howtree.pages.dev/n/fe-sort">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Howtree">
+<meta property="og:title" content="探索と整列とは：前提と学ぶ順番｜Howtree">
+<meta property="og:description" content="線形探索と二分探索、バブルソートの手順をたどり、比較の回数や、途中の並びを求められる。 前提の単元は6個、学習時間の目安は22時間（学校で習う土台を除く）。">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://howtree.pages.dev/n/fe-sort">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Howtree", "item": "https://howtree.pages.dev/"}, {"@type": "ListItem", "position": 2, "name": "単元と到達点の一覧", "item": "https://howtree.pages.dev/n/"}, {"@type": "ListItem", "position": 3, "name": "探索と整列", "item": "https://howtree.pages.dev/n/fe-sort"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap narrow"><div class="hd"><a class="brand" href="../"><span class="logo"><i class="b1"></i><i class="b2"></i><i class="c1"></i><i class="c2"></i><i class="c3"></i></span><span class="word"><small>HOW TO<br>LEARN ANYTHING</small><b>Howtree</b></span></a><div class="right"><a class="link" href="../n/">単元の一覧</a></div></div><div class="band"><div class="main"><span class="tag">単元</span><h1>探索と整列</h1><p>線形探索と二分探索、バブルソートの手順をたどり、比較の回数や、途中の並びを求められる。</p></div><div class="stats"><div class="stat"><div class="k">前提の単元</div><div class="v">6<span class="jp">個</span></div></div><div class="stat"><div class="k">学習時間（仮の目安）</div><div class="v">22<span class="jp">時間</span></div></div></div></div><p class="note">時間は、この目標のための単元の合計です。ほかに、学校で習う土台（中学までの数学）の単元が5個・約103時間あり、習っていれば要りません。前提をひとつも習得していない場合の合計は約125時間です。どれも実測前の仮置きです。習得済みの単元を外した自分用の経路は、ツリーで見られます。</p><div class="btns" style="margin-top:20px"><a class="btn red" href="../#/g/fe-sort">ツリーで経路を見る</a><a class="btn" href="../#/check/fe-sort">現在地を調べる</a></div><div class="blk concept"><div class="rule"></div><h2>探索と整列とは</h2><p>探索は、たくさんのデータの中から目的の値を探す手順です。線形探索は、先頭から一つずつ順に比べます。データがn個なら、比べる回数は最大でn回です。二分探索は、大きさの順(小さい順の昇順か、大きい順の降順)に並んだデータだけに使え、探す範囲の真ん中の要素と比べて、目的の値がそれより大きいか小さいかで、範囲を半分に絞っていきます。1回比べるごとに範囲が半分になるので、比べる回数の最大は、2を何回かけたらデータの個数を超えるかで決まり、データが増えても回数は少ししか増えません。整列(ソート)は、データを大きさの順に並べかえる手順です。バブルソートは、隣どうしの二つを比べ、順番が逆なら入れかえることを、端から端まで繰り返します。昇順に並べるとき、左の端から比べていくと、1周するごとに、残りの中で最大の値が右の端に決まります。</p><pre class="step-formula">二分探索の真ん中：範囲の左端の要素番号と右端の要素番号を足して2で割り、小数点以下を切り捨てた番号
+例　要素番号1から9の範囲なら、(1 + 9) ÷ 2 で5番目と比べる
+比べた値より目的の値が大きければ、範囲を真ん中の右隣から右端までに絞る
+バブルソートで {4, 2, 3} を昇順に：4と2を入れかえて {2, 4, 3}、4と3を入れかえて {2, 3, 4}</pre><p class="note">選択ソートは、残りの中から最小の値を探して左の端と入れかえることを繰り返す整列で、バブルソートと並んでよく出ます。科目Bでは、これらの手順を擬似言語で示し、途中の値を問う形がよく出ます。</p></div><div class="breakdown"><div class="sub">時間の内訳</div><div class="bd-row"><span class="bd-name">中学までの数学</span><span class="bd-bar"><i style="width:82.4%"></i></span><span class="bd-v">103時間・5単元</span></div><div class="bd-row"><span class="bd-name">基本情報技術者試験</span><span class="bd-bar"><i style="width:17.6%"></i></span><span class="bd-v">22時間・2単元</span></div></div><div class="blk"><div class="rule"></div><h2>探索と整列までに進む順番</h2><div class="steps"><a class="step" href="math-addsub"><span class="no">1</span><span class="t">たし算ひき算</span><span class="h">約10 H</span></a><a class="step" href="math-muldiv"><span class="no">2</span><span class="t">かけ算わり算</span><span class="h">約20 H</span></a><a class="step" href="math-fraction"><span class="no">3</span><span class="t">小数と分数</span><span class="h">約40 H</span></a><a class="step" href="math-negative"><span class="no">4</span><span class="t">正負の数</span><span class="h">約13 H</span></a><a class="step" href="math-letters"><span class="no">5</span><span class="t">文字と式</span><span class="h">約20 H</span></a><a class="step" href="fe-pseudo"><span class="no">6</span><span class="t">擬似言語の読み方</span><span class="h">約12 H</span></a></div></div><div class="blk"><div class="rule"></div><h2>問題で学ぶ</h2><p>比べる回数と、整列の途中の並びを求める</p><a class="btn red" href="../#/practice/fe-sort">4問の例題を開く</a></div><div class="blk"><div class="rule"></div><h2>範囲を確認した資料</h2><p><a class="link" href="https://www.ipa.go.jp/shiken/kubun/fe.html" target="_blank" rel="noopener">IPA：基本情報技術者試験（試験区分の案内）</a> <span class="note">2026-11-13に確認</span></p></div><div class="blk"><div class="rule"></div><h2>この単元が要る目標</h2><div class="btns"><a class="btn" href="fe">基本情報技術者試験</a></div></div><div class="foot">HOW TO LEARN ANYTHING ｜ Howtree　<a href="../about">運営者・紹介リンク・データの扱い</a></div></div>
+</body>
+</html>

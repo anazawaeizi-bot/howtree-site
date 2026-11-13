@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>暗号とディジタル署名とは：前提と学ぶ順番｜Howtree</title>
+<meta name="robots" content="index, follow">
+<meta name="description" content="共通鍵暗号と公開鍵暗号、ディジタル署名で、それぞれどの人のどの鍵を使うかを選び、通信する人数から必要な鍵の数を求められる。 前提の単元は2個、学習時間の目安は8時間（学校で習う土台を除く）。">
+<link rel="canonical" href="https://howtree.pages.dev/n/fe-security">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Howtree">
+<meta property="og:title" content="暗号とディジタル署名とは：前提と学ぶ順番｜Howtree">
+<meta property="og:description" content="共通鍵暗号と公開鍵暗号、ディジタル署名で、それぞれどの人のどの鍵を使うかを選び、通信する人数から必要な鍵の数を求められる。 前提の単元は2個、学習時間の目安は8時間（学校で習う土台を除く）。">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://howtree.pages.dev/n/fe-security">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Howtree", "item": "https://howtree.pages.dev/"}, {"@type": "ListItem", "position": 2, "name": "単元と到達点の一覧", "item": "https://howtree.pages.dev/n/"}, {"@type": "ListItem", "position": 3, "name": "暗号とディジタル署名", "item": "https://howtree.pages.dev/n/fe-security"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap narrow"><div class="hd"><a class="brand" href="../"><span class="logo"><i class="b1"></i><i class="b2"></i><i class="c1"></i><i class="c2"></i><i class="c3"></i></span><span class="word"><small>HOW TO<br>LEARN ANYTHING</small><b>Howtree</b></span></a><div class="right"><a class="link" href="../n/">単元の一覧</a></div></div><div class="band"><div class="main"><span class="tag">単元</span><h1>暗号とディジタル署名</h1><p>共通鍵暗号と公開鍵暗号、ディジタル署名で、それぞれどの人のどの鍵を使うかを選び、通信する人数から必要な鍵の数を求められる。</p></div><div class="stats"><div class="stat"><div class="k">前提の単元</div><div class="v">2<span class="jp">個</span></div></div><div class="stat"><div class="k">学習時間（仮の目安）</div><div class="v">8<span class="jp">時間</span></div></div></div></div><p class="note">時間は、この目標のための単元の合計です。ほかに、学校で習う土台（中学までの数学）の単元が2個・約30時間あり、習っていれば要りません。前提をひとつも習得していない場合の合計は約38時間です。どれも実測前の仮置きです。習得済みの単元を外した自分用の経路は、ツリーで見られます。</p><div class="btns" style="margin-top:20px"><a class="btn red" href="../#/g/fe-security">ツリーで経路を見る</a><a class="btn" href="../#/check/fe-security">現在地を調べる</a></div><div class="blk concept"><div class="rule"></div><h2>暗号とディジタル署名とは</h2><p>暗号は、データを決まった手順で読めない形(暗号文)に変え、鍵を持つ人だけが元に戻せる(復号できる)ようにする仕組みです。共通鍵暗号は、暗号化と復号に同じ鍵を使います。処理は速いのですが、相手ごとに別の鍵を作り、相手に安全に渡す必要があります。公開鍵暗号は、対になる二つの鍵を使います。公開鍵はだれに知られてもよく、秘密鍵は本人だけが持ちます。一方の鍵で暗号化したものは、対になるもう一方の鍵でしか復号できません。だれかに秘密の文を送るときは、受け取る人の公開鍵で暗号化し、受け取る人は自分の秘密鍵で復号します。ディジタル署名は、送った人が本人であることと、途中で書きかえられていないことを確かめる仕組みです。送る人は、文から作ったハッシュ値を自分の秘密鍵で暗号化して署名にし、受け取る人は、送った人の公開鍵で署名を復号して、届いた文から自分で作ったハッシュ値と比べます。ハッシュ値は、文から決まった計算で作る短い値で、文が少しでも変わると、ほぼ確実に違う値になります。</p><pre class="step-formula">共通鍵暗号で3人(A、B、C)が、二人ずつ別々の鍵を使う：A と B、A と C、B と C の3個
+公開鍵暗号で3人：一人に公開鍵と秘密鍵の1組ずつで、3組
+機密性(他人に読まれない)を守る：受け取る人の公開鍵で暗号化
+本人確認と改ざん検知：送る人の秘密鍵で署名する</pre><p class="note">Webの暗号化通信(HTTPS)などでは、処理の速い共通鍵暗号で本文を暗号化し、その共通鍵を、公開鍵暗号の仕組みを使って安全に共有する、という組合せが使われます。科目Bの情報セキュリティでは、こうした仕組みを、会社の事例の文章に当てはめて問います。</p></div><div class="breakdown"><div class="sub">時間の内訳</div><div class="bd-row"><span class="bd-name">中学までの数学</span><span class="bd-bar"><i style="width:78.9%"></i></span><span class="bd-v">30時間・2単元</span></div><div class="bd-row"><span class="bd-name">基本情報技術者試験</span><span class="bd-bar"><i style="width:21.1%"></i></span><span class="bd-v">8時間・1単元</span></div></div><div class="blk"><div class="rule"></div><h2>暗号とディジタル署名までに進む順番</h2><div class="steps"><a class="step" href="math-addsub"><span class="no">1</span><span class="t">たし算ひき算</span><span class="h">約10 H</span></a><a class="step" href="math-muldiv"><span class="no">2</span><span class="t">かけ算わり算</span><span class="h">約20 H</span></a></div></div><div class="blk"><div class="rule"></div><h2>問題で学ぶ</h2><p>使う鍵と、鍵の数を求める</p><a class="btn red" href="../#/practice/fe-security">3問の例題を開く</a></div><div class="blk"><div class="rule"></div><h2>範囲を確認した資料</h2><p><a class="link" href="https://www.ipa.go.jp/shiken/kubun/fe.html" target="_blank" rel="noopener">IPA：基本情報技術者試験（試験区分の案内）</a> <span class="note">2026-11-13に確認</span></p></div><div class="blk"><div class="rule"></div><h2>この単元が要る目標</h2><div class="btns"><a class="btn" href="fe">基本情報技術者試験</a></div></div><div class="foot">HOW TO LEARN ANYTHING ｜ Howtree　<a href="../about">運営者・紹介リンク・データの扱い</a></div></div>
+</body>
+</html>
